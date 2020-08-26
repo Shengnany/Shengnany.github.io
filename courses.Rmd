@@ -1,0 +1,42 @@
+---
+title: "Courses"
+---
+
+***
+
+## Graduate Courses taken 
+
+
+* [AMS 578 Regression Analysis](https://www.stonybrook.edu/commcms/ams/graduate/_courses/ams578.php)
+
+  Check my course project  [here](https://github.com/Shengnany/Regression-Analysis)
+
+* [AMS 597 Statistical Computing ](https://www.stonybrook.edu/commcms/ams/graduate/_courses/ams597.php)
+
+  Check my course project  [here](https://github.com/Shengnany/Statistical-Computing)
+
+***
+
+## Interested Subjects
+
+
+* #### Elements of Statistical learning
+
+Recommended by my professor, I started to study this book. This book explains data mining model in a simple way. 
+My solutions to this book's exercises could be found here
+- [Exerercise](ESL.html)
+
+
+* #### Survival Analysis
+
+Check my  project [here](https://github.com/Shengnany/Statistical-Computing)
+
+
+* #### Bayesian Inference
+
+[My solutions](https://github.com/Shengnany/Bayesian-Inference)
+
+
+* #### Data Science
+
+Check my CSE351 course project [here](https://github.com/Shengnany/Data-Science/blob/master/CSE351%20Final%20Project/Final%20Project.pdf)

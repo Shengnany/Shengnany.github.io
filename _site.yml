@@ -1,0 +1,19 @@
+name: "Shengnan You"
+output_dir: "."
+navbar:
+  title: "About me"
+  left:
+    - text: "Projects"
+      href: projects.html
+    - text: "Courses"
+      href: courses.html
+  right:
+    - icon: fa-envelope fa-lg
+      href: contact.html
+    - icon: fa-github fa-lg
+      href: https://github.com/Shengnany
+    - icon: fa-linkedin fa-lg
+      href: https://www.linkedin.com/in/shengnan-you-08815717a/
+output:
+  html_document:
+    theme: flatly

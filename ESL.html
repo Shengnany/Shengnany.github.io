@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>ESL.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h2 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h3 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h4 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h5 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.section h6 {
+  padding-top: 65px;
+  margin-top: -65px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">About me</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="projects.html">Projects</a>
+</li>
+<li>
+  <a href="courses.html">Courses</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Shengnany">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/shengnan-you-08815717a/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This book was recommended by my professors to students who is intereseted in learnning more about machine learning methods, and I want to study this book also for the purpose of reviewing my statistics-related knowledge. I have finishd some of the exercises in this book on Chpater 2(Regression). My implementation of the R codes can be found <a href="">here</a>.</p>
+<p>Due to my limited statistical knowledge, there may be some mistakes occured. Please feel free to point out any typos and mathematical analysis errors.</p>
+<hr />
+</div>
+<div id="exercise-2.1" class="section level2">
+<h2>Exercise 2.1</h2>
+<p><strong>Question:</strong></p>
+<p>Suppose that each of K classes has an associated target <span class="math inline">\(t_k\)</span>, which is a vector of all zeroes, except a one in the k-th position. Show that classifying the largest element of ŷ amounts to choosing the closest target<span class="math inline">\(min_k‖t_{k}−ŷ ‖.\)</span>$if the elements of ŷ sum to one.</p>
+<p>Also I found the third chapter related much to my regression course that have been taken, so I figured it might be a good practice to study it as a review of my course.</p>
+<p><strong>Solution:</strong></p>
+<p>If <span class="math inline">\(\hat{y}\)</span> sums to one and assume we are using Euclidean Distance:</p>
+<center>
+<span class="math inline">\(argmin_k\left\|t_k-\hat{y}\right\| =argmin_k\left\|t_k-\hat{y}\right\|^2\)</span>
+</center>
+<center>
+<span class="math inline">\(\left\|t_k-\hat{y}\right\|^2\)</span> = <span class="math inline">\((t_k-\hat{y})^T(t_k-\hat{y})\)</span> = <span class="math inline">\(t_k^Tt_k-2t_k^T\hat{y}+\hat{y}^T\hat{y}\)</span> = 1+<span class="math inline">\(\hat{y}^T\hat{y}\)</span>-2<span class="math inline">\(\hat{y}_k\)</span>
+</center>
+<p>Since 1 +<span class="math inline">\(\hat{y}^T\hat{y}\)</span> is constant:</p>
+<center>
+<span class="math inline">\(argmin_k\left\|t_k-\hat{y}\right\|\)</span> = <span class="math inline">\(argmin_k (-2\hat{y}_k)\)</span>= <span class="math inline">\(argmax_k( \hat{y}_k )\)</span>
+</center>
+<p>Proved.</p>
+<hr />
+</div>
+<div id="exercise-2.2" class="section level2">
+<h2>Exercise 2.2</h2>
+<p><strong>Question:</strong></p>
+<p>Show how to compute the Bayes decision boundary for the simulation example in Figure 2.5.</p>
+<p><img src="images/Ex2.2.png" style="width:50%; border:10px solid; margin-right: 20px" align="center"></p>
+<p>Hastie, Tibshirani and Friedman.<em>The Elements of Statistical Learning (2nd edition)</em>. Page 13.</p>
+<p><strong>Solution:</strong></p>
+<p>Review of method that generates the BLUE class and ORANGE class points:</p>
+<p>Generate 10 means <span class="math inline">\(m_k\)</span> from bivariate Gaussian distribution: N(<span class="math inline">\((1,0)^T\)</span>,<strong>I</strong>), they are labeled as BlUE class. Then generate 100 observations of N(<span class="math inline">\(m_k\)</span>,<strong>I</strong>/5) with each mean <span class="math inline">\(m_k\)</span> having probability 1/10.</p>
+<p>Similarly, we generate 10 means <span class="math inline">\(m_k&#39;\)</span> from bivariate Gaussian distribution: N(<span class="math inline">\((0,1)^T\)</span>,<strong>I</strong>) and label them as ORANGE class. Then generate 100 observations of N(<span class="math inline">\(m_k&#39;\)</span>,<strong>I/5</strong>) with each mean <span class="math inline">\(m_k&#39;\)</span> having probability 1/10.</p>
+<p>Priors:</p>
+<center>
+<p>P(<span class="math inline">\(\mathcal G_{BLUE}\)</span>) = 1/2</p>
+P(<span class="math inline">\(\mathcal G_{ORANGE}\)</span>) = 1/2
+</center>
+<p>Likelihood:</p>
+<center>
+<p>P(<span class="math inline">\(\mathrm X = x |\mathcal G_{BLUE}\)</span>)</p>
+<p>= <span class="math inline">\(\sum_{k=1}^{10} P(\mathrm X = x |m = m_k,\mathcal G_{BLUE})P(m = m_k | \mathcal G_{BLUE})\)</span></p>
+<p>= <span class="math inline">\(\sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{1}{2}(x-m_k)^T(\frac{I}{5})^{-1}(x - m_k)} \frac{1}{10}\)</span></p>
+= <span class="math inline">\(\sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{5}{2}\left\|x-m_k\right\|^2} \frac{1}{10}\)</span>
+</center>
+<p>Similarly for ORANGE class:</p>
+<center>
+<p>P(<span class="math inline">\(\mathrm X = x |\mathcal G_{ORANGE}\)</span>)</p>
+= <span class="math inline">\(\sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^(-1/2) e^{-\frac{5}{2}\left\|x-m_k&#39;\right\|^2} \frac{1}{10}\)</span>
+</center>
+<p>Now we can calculate the posterior probability:</p>
+<center>
+<p>P(<span class="math inline">\(\mathcal G_{BLUE}|\mathrm X = x\)</span>) = <span class="math inline">\(\frac {P(\mathrm X = x | \mathcal G_{BLUE}) P(G_{BLUE})}{P{(\mathrm X = x)}}\)</span>)</p>
+P(<span class="math inline">\(\mathcal G_{ORANGE}|\mathrm X = x\)</span>) = <span class="math inline">\(\frac {P(\mathrm X = x | \mathcal G_{ORANGE})P(\mathcal G_{ORANGE})}{P{(\mathrm X = x)}}\)</span>
+</center>
+<p>Let the two posterior probability equal and we get:</p>
+<center>
+<span class="math inline">\(\sum_{k=1}^{10} exp(-\frac{5}{2}\left\|x-m_k\right\|^2)\)</span> = <span class="math inline">\(\sum_{k=1}^{10} exp(-\frac{5}{2}\left\|x-m_k&#39;\right\|^2\)</span>
+</center>
+<p>Note: For multivariate Gaussian distribution N <span class="math inline">\((\mu\)</span>, <span class="math inline">\(\Sigma\)</span>)</p>
+<p>where <span class="math inline">\(\mu\)</span> <span class="math inline">\(\in\)</span> <span class="math inline">\(\mathrm R ^k\)</span> and <span class="math inline">\(\Sigma\)</span> <span class="math inline">\(\in\)</span> <span class="math inline">\(\mathrm R^{k\times k}\)</span></p>
+<p>PDF = <span class="math inline">\((2\pi)^{-k/2}\)</span><span class="math inline">\(det(\Sigma)^{-1/2}\)</span><span class="math inline">\(e^{-(1/2) (x-\mu )^T(\Sigma )^{-1}(x -\mu )}\)</span>; <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution">See:Wikipedia</a></p>
+<p>Hence <strong>decision boundary</strong>:</p>
+<center>
+{x: <span class="math inline">\(\sum_{k=1}^{10} exp(-\frac{5}{2}\left\|x-m_k\right\|^2) - \sum_{k=1}^{10} exp(-\frac{5}{2}\left\|x-m_k&#39;\right\|^2 = 0\)</span>}
+</center>
+<p>Or:</p>
+<p>BLUE: if the result &gt; 0</p>
+<p>ORANGE: if the result &lt; 0</p>
+<hr />
+</div>
+<div id="exercise-2.3" class="section level2">
+<h2>Exercise 2.3</h2>
+<p><strong>Question:</strong></p>
+<p>Derive equation 2.24:<br />
+d(p,N) = <span class="math inline">\((1 -{\frac{1}{2}^{\frac{1}{N}}})^\frac{1}{P}\)</span><br />
+See <em>The Elements of Statistical Learning (2nd edition)</em>, page 23.</p>
+<p><strong>Solution:</strong></p>
+<p>The equation is talking about the median distance from the origin to the cloest data point.</p>
+<p>Since that the N data points are uniformly distributed in a p-dimensional unit ball centered at the origin. Suppose <span class="math inline">\(d_i\)</span> is the distance between the ith point and the origin. The distrubition of <span class="math inline">\(d_i\)</span> :</p>
+<center>
+<span class="math inline">\(P(d_i\le d ) = \frac{d^p}{1^p} = d^p\)</span>
+</center>
+<p>Suppose the cloest distance have a distance of D, then the cumulative distribution function of D can be written as:</p>
+<center>
+P(<span class="math inline">\(D\le d\)</span>) = 1 - <span class="math inline">\(\prod^{n=N}_{i=1}P(d_i &gt; d)\)</span> = 1 - <span class="math inline">\((1-d^p)^N\)</span>
+</center>
+<p>Now to find the median shortest distance, we simply plug 1/2 into the cumulative distribution function of D:</p>
+<center>
+P(<span class="math inline">\(D\le d\)</span>) = <span class="math inline">\(\frac{1}{2}\)</span>
+</center>
+<p>Solve the equation we get:</p>
+<center>
+d = <span class="math inline">\((1 -{\frac{1}{2}^{\frac{1}{N}}})^\frac{1}{P}\)</span>
+</center>
+<hr />
+</div>
+<div id="exercise-2.4" class="section level2">
+<h2>Exercise 2.4:</h2>
+<p><strong>Question:</strong></p>
+<p>The edge effect problem discussed on page 23 is not peculiar to uniform sampling from bounded domains. Consider inputs drawn from a spherical multinormal distribution X ∼ N(0, Ip). The squared distance from any sample point to the origin has a <span class="math inline">\(χ^2\)</span> p distribution with mean p. Consider a prediction point x0 drawn from this distribution, and let a = <span class="math inline">\(x_0/\left\|x_0\right\|\)</span> be an associated unit vector. Let <span class="math inline">\(z_i\)</span> = <span class="math inline">\(a^Tx_i\)</span> be the projection of each of the training points on this direction.<br />
+Show that the zi are distributed N(0, 1) with expected squared distance from the origin 1, while the target point has expected squared distance p from the origin.<br />
+Hence for p = 10, a randomly drawn test point is about 3.1 standard deviations from the origin, while all the training points are on average one standard deviation along direction a. So most prediction see themselves as lying on the edge of the training set.</p>
+<p><strong>Solution:</strong></p>
+<p>First it should be clear that if <span class="math inline">\(X\)</span> is said to multinormal distributed then its linear combination of its components has a univariate normal distribution.</p>
+<ol style="list-style-type: decimal">
+<li>Hence the projections <span class="math inline">\(z_i\)</span> are normally distributed. Furthermore,</li>
+</ol>
+<p>Expectation: E(<span class="math inline">\(z_i\)</span>) = E(<span class="math inline">\(a^Tx_i\)</span>) = <span class="math inline">\(a^T\)</span>E(<span class="math inline">\(x_i\)</span>) = 0 (by definition of the distribution of <span class="math inline">\(x_i\)</span>)</p>
+<p>Variance: Var(<span class="math inline">\(z_i\)</span>) = <span class="math inline">\(a^T\)</span>Var(<span class="math inline">\(z_i\)</span>)<span class="math inline">\(a\)</span> = <span class="math inline">\(a^T\)</span><span class="math inline">\(I_p\)</span><span class="math inline">\(a\)</span> (because Var(AX) = AVar(X)<span class="math inline">\(A^T\)</span>)</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Since <span class="math inline">\(z_i\)</span> ~ N(0,1), <span class="math inline">\(z_i^2\)</span> ~ <span class="math inline">\(\chi^2\)</span> with degrees of freedom 1(by the definition of <span class="math inline">\(\chi^2\)</span> distribution). Hence the mean is 1.</p></li>
+<li><p>Our predicttion point(target point)’s expected squared distance is:</p></li>
+</ol>
+<center>
+E(<span class="math inline">\({\left\|x_0 \right\|}^2\)</span>) = <span class="math inline">\(\sum^p_i E(x_{0i}^2)\)</span>=<span class="math inline">\(\sum^p_i (Var(x_{0i}^2) + E(x_{0i})^2)\)</span> = <span class="math inline">\(\sum^p_i Var(x_{0i}^2)\)</span> = <span class="math inline">\(\sum^p_i 1\)</span> = p.
+</center>
+<p>(The covariance maxtrix is <span class="math inline">\(I_p\)</span>)</p>
+<p>Therefore, the distance between our prediction points <span class="math inline">\(X_0\)</span> to the origin is about <span class="math inline">\(\sqrt p\)</span> = <span class="math inline">\(\sqrt 10\)</span> standard deviations, but training points (<span class="math inline">\(z_i\)</span>) have only one standard deviation. Hence the postion <span class="math inline">\(x_0\)</span> is likely to be on the edge of trainning points.</p>
+<hr />
+</div>
+<div id="exercise-2.5" class="section level2">
+<h2>Exercise 2.5</h2>
+<p><strong>Question:</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Derive equation (2.27). The last line makes use of (3.8) through a conditioning argument.</p></li>
+<li><p>Derive equation (2.28), making use of the cyclic property of the trace operator [trace(AB) = trace(BA)], and its linearity (which allows us to interchange the order of trace and expectation).</p></li>
+</ol>
+<p><strong>Solution:</strong></p>
+<p>Part (a):</p>
+<p><strong>Model</strong>:</p>
+<p>y = <span class="math inline">\(X\beta +\epsilon\)</span>, where <span class="math inline">\(\epsilon\)</span> is uncorrelated and normally distributed with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>Also, X is a <span class="math inline">\(N\times\beta\)</span> vector, Y is a <span class="math inline">\(N\times1\)</span> vector and <span class="math inline">\(\beta\)</span> is <span class="math inline">\(p\times1\)</span>.</p>
+Given <span class="math inline">\(x_0\)</span>, the expected values of <span class="math inline">\(x_0\)</span> is fixed:
+<center>
+<span class="math inline">\(E(y_0|x_0) = x_0^T\beta\)</span>
+</center>
+<p>Our least-square estimator derived from normal equations:</p>
+<center>
+<span class="math inline">\(\hat{\beta} = (X^TX)^{-1}X^Ty\)</span>
+</center>
+<p>Under our model,</p>
+<center>
+<span class="math inline">\(E(\hat{\beta})\)</span> = <span class="math inline">\(E[\beta + (X^TX)^{-1}X^T\epsilon] = \beta\)</span>
+</center>
+<center>
+<span class="math inline">\(Var(\hat{\beta})\)</span>= <span class="math inline">\(Var[(X^TX)^{-1}X^Ty]\)</span> =<span class="math inline">\((X^TX)^{-1}X^T(\sigma^2)X(X^TX)^{-1}\)</span>= <span class="math inline">\((X^TX)^{-1}(\sigma^2)\)</span>
+</center>
+<p>Hence,</p>
+<center>
+<span class="math inline">\(Var(\hat{y_0})\)</span> = <span class="math inline">\(Var(x_0^T\hat{\beta})\)</span> = <span class="math inline">\(x_0^T(X^TX)^{-1}x_0\sigma^2\)</span> (2.5.1)
+</center>
+<p>If our estimated <span class="math inline">\(\hat{y_0}\)</span> = <span class="math inline">\(x_0^T\hat{\beta}\)</span>, then:</p>
+<center>
+<span class="math inline">\(E_{\tau}(\hat{y_0})\)</span> = E(<span class="math inline">\(x_0^T\hat{\beta}\)</span>) = <span class="math inline">\(x_0^T\beta\)</span>
+</center>
+<p>and has no relationship with <span class="math inline">\(y_0\)</span>.</p>
+<p>Decompose the inner square:</p>
+<center>
+<span class="math inline">\(E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]\)</span> = <span class="math inline">\(E_{y_0|x_0}[E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2]\)</span>
+</center>
+<p>First look at the inner expectation term:</p>
+<p><span class="math inline">\(E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2\)</span></p>
+<p>= <span class="math inline">\(E_{\tau}((y_0-E_{\tau}\hat{y_0})^2) + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2E_{\tau}[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-\hat{y_0}]\)</span></p>
+<p>= <span class="math inline">\((y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-E_{\tau}\hat{y_0}]\)</span></p>
+<p>= <span class="math inline">\((y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2\)</span> (2.5.2)</p>
+<p>Then decompose <span class="math inline">\(y_0-E_{\tau}\hat{y_0}\)</span> into <span class="math inline">\(y_0-E(y_0|x_0)+E(y_0|x_0)-E_{\tau}\hat{y_0}\)</span>, then 2.5.2 becomes:</p>
+<p><span class="math inline">\((y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2\)</span></p>
+<p>Hence the inner expectation <span class="math inline">\(E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2\)</span> is:</p>
+<p><span class="math inline">\((y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2\)</span></p>
+<p>Therefore:</p>
+<p><span class="math inline">\(E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]\)</span></p>
+<p>= <span class="math inline">\(E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2\)</span></p>
+<p>Note:</p>
+<p>(1).<span class="math inline">\(E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 = Var(y_0|x_0)\)</span></p>
+<p>(2).<span class="math inline">\(2 E_{y_0|x_0}[(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0})] = 2 E_{y_0|x_0}(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) = 0\)</span></p>
+<p>(3).<span class="math inline">\((E(y_0|x_0)-E_{\tau}\hat{y_0})^2= Bias(\hat{y_0})^2\)</span></p>
+<p>(4).<span class="math inline">\(E_{y_0|x_0}[E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2] = E_{\tau}E_{\tau}\hat{y_0}-\hat{y_0})^2 = Var_{\tau}(\hat{y_0}))\)</span></p>
+<p>So we have:</p>
+<center>
+<span class="math inline">\(E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]\)</span> = <span class="math inline">\(Var(y_0|x_0) + Bias(\hat{y_0})^2 +Var_{\tau}(\hat{y_0})\)</span>
+</center>
+<p><em>The conditional variance</em> <span class="math inline">\(Var(y_0|x_0)\)</span> = <span class="math inline">\(Var(x_o^T\beta + \epsilon|x_0)\)</span> = <span class="math inline">\(Var(\epsilon)\)</span> = <span class="math inline">\(\sigma^2\)</span> <em>and</em> <span class="math inline">\(E_{\tau}\hat{y_0} = E(y_0|x_0) = x_0^T\beta\)</span>, so <span class="math inline">\(Bias(\hat{y_0})^2 = 0\)</span></p>
+<p><em>From 2.5.1, <span class="math inline">\(Var_{\tau}(\hat{y_0})\)</span> = <span class="math inline">\(E_{\tau}x_0^T(X^TX)^{-1}x_0\sigma^2\)</span>, since we are averaging over traing set </em><span class="math inline">\(\tau\)</span>:</p>
+<center>
+<span class="math inline">\(Var_{\tau}(\hat{y_0})\)</span> = <span class="math inline">\(E_{\tau}x_0^T(X^TX)^{-1}x_0\sigma^2\)</span>
+</center>
+We have:
+<center>
+<span class="math inline">\(E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]\)</span> = <span class="math inline">\(\sigma^2 + E_{\tau}x_0^T(X^TX)^{-1}x_0\sigma^2\)</span>
+</center>
+<p>Here the prediction error include <span class="math inline">\(\sigma^2\)</span> since the target is not deterministic</p>
+<p>Proved.</p>
+<p>Part(b):</p>
+<p>Background:</p>
+We know that if N is large and E(X) = 0, then:
+<center>
+<span class="math inline">\((X^TX) -&gt; NCov(X)\)</span>
+</center>
+<p>Hence:</p>
+<center>
+<span class="math inline">\((X^TX)^{-1} = Cov^{-1}(X)/N\)</span>
+</center>
+And:
+<center>
+<span class="math inline">\(E_{x_0}[EPE(X_0)]\)</span> = <span class="math inline">\(E_{x_0}[x_0^TCov^{-1}(X)x_0\sigma^2/N] +\sigma^2\)</span>
+</center>
+<p>Note that <span class="math inline">\(x_0^TCov^{-1}(X)x_0\)</span> is 1 by 1 matrix</p>
+<p>The above could be expressed by:</p>
+<p><span class="math inline">\(trace(E_{x_0}[x_0x_0^T\times Cov^{-1}(X)]\sigma^2/N ) +\sigma^2\)</span></p>
+<p>= <span class="math inline">\(trace[E_{x_0}[x_0x_0^T]\times Cov^{-1}(X)]\sigma^2/N + \sigma^2\)</span></p>
+<p>Since <span class="math inline">\(E_{x_0}(x_0^Tx_0)\)</span> = <span class="math inline">\(E_{x_0}(\sum{(X_{0i})^2})\)</span> = <span class="math inline">\(E_{x_0}(\sum{(X_{0i}-0)^2})\)</span> = <span class="math inline">\(E_{x_0}(\sum{(X_{0i}-E(X_0))^2})\)</span> = Cov(X)</p>
+The above is equal to:
+<center>
+<span class="math inline">\(trace[Cov(X)\times Cov^{-1}(X)]\sigma^2/N + \sigma^2\)</span> = <span class="math inline">\(trace(I_p)\sigma^2/N + \sigma^2\)</span>
+</center>
+<hr />
+</div>
+<div id="exercise-2.6" class="section level2">
+<h2>Exercise 2.6</h2>
+<p><strong>Question:</strong></p>
+<p>Consider a regression problem with inputs <span class="math inline">\(x_i\)</span> and outputs <span class="math inline">\(y_i\)</span>, and a parameterized model $f_θ(x) $to be fit by least squares. Show that if there are observations with tied or identical values of x, then the fit can be obtained from a reduced weighted least squares problem.</p>
+<p><strong>Solutions: </strong></p>
+<p>Suppose there are <span class="math inline">\(m_i\)</span> observations at <span class="math inline">\(x_i\)</span> = 1,…,m N = <span class="math inline">\(\sum_{i=1}^{m} {m_i}\)</span> and <span class="math inline">\(\hat y_i\)</span> = <span class="math inline">\(f_{\theta}(x_i)\)</span></p>
+<p>Decompose $y_{ij} - y_i $ into <span class="math inline">\((y_{ij} - \bar y_{i.})\)</span> + <span class="math inline">\((\bar y_{i.} - \hat y_i)\)</span> where <span class="math inline">\(bar y_{i.}\)</span> is the mean of <span class="math inline">\(i_th\)</span> group</p>
+<p>RSS(<span class="math inline">\(\theta\)</span>) = <span class="math inline">\(\sum_{i=1}^{n=N} (y_i - \hat y_i)^2\)</span></p>
+<p>= <span class="math inline">\(\sum_{i=1}^m \sum_{j=1}^{m_i} [(y_{ij} - \bar y_{i.})^2 + 2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i) + (y_{i.} - \hat y_i)^2]\)</span></p>
+<p>First consider the second <span class="math inline">\(\sum_{i=1}^m \sum_{j=1}^{m_i}2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i)\)</span></p>
+<p>= <span class="math inline">\(2\sum_{i=1}^m(y_{i.} - \hat y_i)\sum_{j=1}^{m_i}(y_{ij} - \bar y_{i.})\)</span></p>
+<p>= 0</p>
+<p>The third term = <span class="math inline">\(\sum_{i=1}^m \sum_{j=1}^{m_i} (y_{i.} - \hat y_i)^2\)</span></p>
+<p>= <span class="math inline">\(\sum_{i=1}^m m_i(y_{i.} - \hat y_i)^2\)</span></p>
+<p>If we only need mimize the RSS with respect to <span class="math inline">\(\theta\)</span>, the second term could be ognored.</p>
+<p>Hence our RSS(<span class="math inline">\(\theta\)</span>) = <span class="math inline">\(\sum_{i=1}^m m_i(y_{i.} - \hat y_i)^2\)</span>. Here our our residual squares is weighted by <span class="math inline">\(m_i\)</span>, which is how many identical values of x on each level.</p>
+<hr />
+</div>
+<div id="exercise-2.7" class="section level2">
+<h2>Exercise 2.7:</h2>
+<p><em>Question:</em></p>
+Suppose we have a sample of N pairs xi, yi drawn i.i.d. from the distribution characterized as follows:
+<center>
+<p><span class="math inline">\(x_i\)</span> ~ <span class="math inline">\(h(x)\)</span>, the design density</p>
+<p><span class="math inline">\(y_i = f(x_i) + \epsilon\)</span>, f is the regression function</p>
+<p><span class="math inline">\(\epsilon ∼ (0, \sigma^2)\)</span> (mean zero, variance <span class="math inline">\(\sigma^2\)</span>)</p>
+</center>
+<p>We construct an estimator for f linear in the <span class="math inline">\(y_i\)</span>,</p>
+<center>
+<span class="math inline">\(\hat{f(x_0)} =\sum_{i=1}^N \ell (x_0;\mathcal X)y_i\)</span>
+</center>
+<p>where the weights <span class="math inline">\(\ell(x_0;\mathcal X)\)</span> do not depend on the yi, but do depend on the entire training sequence of xi, denoted here by <span class="math inline">\(\mathcal X\)</span>.</p>
+<p>(a)Show that linear regression and k-nearest-neighbor regression are members of this class of estimators. Describe explicitly the weights <span class="math inline">\(\ell (x_0;\mathcal X)\)</span> in each of these cases.</p>
+(b)Decompose the conditional mean-squared error
+<center>
+<span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − f(\hat{x_0}))^2\)</span>
+</center>
+<p>into a conditional squared bias and a conditional variance component. Like <span class="math inline">\(\mathcal X\)</span>, <span class="math inline">\(\mathcal Y\)</span> represents the entire training sequence of <span class="math inline">\(y_i\)</span>.</p>
+(c)Decompose the (unconditional) mean-squared error
+<center>
+<span class="math inline">\(E_{\mathcal Y,\mathcal X}{(f(x_0) − f(\hat {x_0}))^2}\)</span>
+</center>
+<p>into a squared bias and a variance component.</p>
+<p>(d)Establish a relationship between the squared biases and variances in the above two cases.</p>
+<p><strong>Solution: </strong></p>
+<p>Part(a):</p>
+<p>Recall in linear regression, <span class="math inline">\(\beta\)</span> is just a linear combination of the obsercations and it follows with mean <span class="math inline">\(\beta\)</span> and covariance matrix <span class="math inline">\(\sigma^2(X^TX)^{-1}\)</span>:</p>
+<p><span class="math inline">\(\hat y_0 = \hat f(x_0) = {x_0}^T\hat{\beta} = x_0^T(X^TX)^{-1}X^TY\)</span></p>
+<p><span class="math inline">\(\hat{f(x_0)} =\sum_{i=1}^N \ell(x_0;\mathcal X)sy_i\)</span> where <span class="math inline">\(\ell(x_0;\mathcal X)\)</span> = <span class="math inline">\(x_0^T(X^TX)^{-1}X^T\)</span></p>
+<p>Y is N x 1, <span class="math inline">\((X^TX)^{-1}X^T\)</span> is p<span class="math inline">\(\times\)</span>N, <span class="math inline">\(and x_0^T\)</span> is 1<span class="math inline">\(\times\)</span>p.</p>
+<p><span class="math inline">\(\hat f(x_0) = Ave(y_i|x_i \in N_k(x))\)</span> where <span class="math inline">\(N_k(x)\)</span> is the neighbourhood containing x</p>
+<p>We can use an indicator to specify whether the condition:</p>
+<center>
+<span class="math inline">\(I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)\)</span>
+</center>
+<p>where <span class="math inline">\(x_{(k)}\)</span> is the training observation ranked kth in distance from <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_i \in N_k(x)\)</span></p>
+<p><span class="math inline">\(\hat f(x_0) = Ave(y_i|x_i \in N_k(x))\)</span> = <span class="math inline">\(\sum_{i=1}^k \frac{1}{k}I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)\)</span></p>
+<p>Hence <span class="math inline">\(\ell(x_0;\mathcal X)\)</span> = <span class="math inline">\(I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)\)</span></p>
+<p>Part(b):</p>
+<p><span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span></p>
+<p>= <span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)} + E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2\)</span></p>
+<p>= <span class="math inline">\(E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)})^2\)</span> + <span class="math inline">\(E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2\)</span> + <span class="math inline">\(2E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y|{\mathcal X}}{\hat f(x_0)})\)</span></p>
+<p>The third term is <span class="math inline">\(2E_{\mathcal Y|{\mathcal X}}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)}) = 0\)</span></p>
+Hence
+<center>
+<span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span> = <span class="math inline">\(Var(\hat f(x_0)|\mathcal X)\)</span> + <span class="math inline">\(Bias(\hat f{(x_0)}|\mathcal X)^2\)</span>
+</center>
+<p>Part(c):</p>
+<p>Similarl to part(b):</p>
+<p><span class="math inline">\(E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span></p>
+<p>= <span class="math inline">\(E_{\mathcal Y,\mathcal X}(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})^2\)</span> + <span class="math inline">\(E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2\)</span> + <span class="math inline">\(2E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})\)</span></p>
+<p>= <span class="math inline">\(Var(\hat f(x_0))\)</span> + <span class="math inline">\(Bias(\hat f{(x_0)})^2\)</span></p>
+<p>part(d):</p>
+<p>We can factor the joint density into the f(X,Y) = f(Y|X)Pr(X) = f(Y|X)h(<span class="math inline">\(\mathcal X\)</span>)</p>
+<p><span class="math inline">\(E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span> = <span class="math inline">\(\int (f(x_0) − \hat f{(x_0)} )^2f(Y|X)\)</span></p>
+<p><span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span></p>
+<p>=<span class="math inline">\(\int \int (f(x_0) − \hat f{(x_0)} )^2f(X,Y)\)</span></p>
+<p>=<span class="math inline">\(\int \int (f(x_0) − \hat f{(x_0)} )^2f(Y|X)h(\mathcal X)\)</span></p>
+<p>Hence <span class="math inline">\(E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span> = <span class="math inline">\(E_{\mathcal X}[E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2]\)</span></p>
+<p>The relationship between the decompositions is</p>
+<p><span class="math inline">\(Var(\hat f(x_0))\)</span> + <span class="math inline">\(Bias(\hat f{(x_0)})^2\)</span> = <span class="math inline">\(\int [Var(\hat f(x_0)|\mathcal X) + Bias(\hat f{(x_0)}|\mathcal X)^2] h(\mathcal X)\)</span></p>
+<hr />
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

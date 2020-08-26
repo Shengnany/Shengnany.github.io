@@ -1,0 +1,5 @@
+---
+title: "Projects"
+---
+
+Check out my AMS578 course project report: [here](files/Project_Report.pdf).
