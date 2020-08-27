@@ -2,4 +2,23 @@
 title: "Projects"
 ---
 
+* ### Regression Analysis
+
 Check out my AMS578 course project report: [here](files/Project_Report.pdf).
+
+* ### Elements of Statistical learning
+
+Recommended by my professor, I started to study this book. This book explains data mining model in a simple way.
+My solutions to this book's exercises could be found here
+- [Exerercise](ESL.html)
+
+
+* ### Survival Analysis
+
+Check my related projects [here](https://github.com/Shengnany/Statistical-Computing)
+
+
+* ### Bayesian Inference
+
+[My Bayesian Inference Project](https://github.com/Shengnany/Bayesian-Inference)
+
