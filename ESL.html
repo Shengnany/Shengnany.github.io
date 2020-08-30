@@ -325,12 +325,16 @@ $(document).ready(function () {
 <p>Also I found the third chapter related much to my regression course that have been taken, so I figured it might be a good practice to study it as a review of my course.</p>
 <p><strong>Solution:</strong></p>
 <p>If <span class="math inline">\(\hat{y}\)</span> sums to one and assume we are using Euclidean Distance:</p>
-<center>
-<span class="math inline">\(argmin_k\left\|t_k-\hat{y}\right\| =argmin_k\left\|t_k-\hat{y}\right\|^2\)</span>
-</center>
-<center>
-<span class="math inline">\(\left\|t_k-\hat{y}\right\|^2\)</span> = <span class="math inline">\((t_k-\hat{y})^T(t_k-\hat{y})\)</span> = <span class="math inline">\(t_k^Tt_k-2t_k^T\hat{y}+\hat{y}^T\hat{y}\)</span> = 1+<span class="math inline">\(\hat{y}^T\hat{y}\)</span>-2<span class="math inline">\(\hat{y}_k\)</span>
-</center>
+
+<p><span class="math inline">\(argmin_k\left\|t_k-\hat{y}\right\| = argmin_k\left\|t_k-\hat{y}\right\|^2\)</span> \end{equation}</p>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+\left\|t_k-\hat{y}\right\|^2
+&amp; = (t_k-\hat{y})^T(t_k-\hat{y}) \\
+&amp; = t_k^Tt_k-2t_k^T\hat{y}+\hat{y}^T\hat{y} \\
+&amp; = 1+\hat{y}^T\hat{y}-2\hat{y}_k 
+\end{split}
+\end{equation}\]</span></p>
 <p>Since 1 +<span class="math inline">\(\hat{y}^T\hat{y}\)</span> is constant:</p>
 <center>
 <span class="math inline">\(argmin_k\left\|t_k-\hat{y}\right\|\)</span> = <span class="math inline">\(argmin_k (-2\hat{y}_k)\)</span>= <span class="math inline">\(argmax_k( \hat{y}_k )\)</span>
@@ -354,12 +358,17 @@ $(document).ready(function () {
 P(<span class="math inline">\(\mathcal G_{ORANGE}\)</span>) = 1/2
 </center>
 <p>Likelihood:</p>
-<center>
-<p>P(<span class="math inline">\(\mathrm X = x |\mathcal G_{BLUE}\)</span>)</p>
-<p>= <span class="math inline">\(\sum_{k=1}^{10} P(\mathrm X = x |m = m_k,\mathcal G_{BLUE})P(m = m_k | \mathcal G_{BLUE})\)</span></p>
-<p>= <span class="math inline">\(\sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{1}{2}(x-m_k)^T(\frac{I}{5})^{-1}(x - m_k)} \frac{1}{10}\)</span></p>
-= <span class="math inline">\(\sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{5}{2}\left\|x-m_k\right\|^2} \frac{1}{10}\)</span>
-</center>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+P(\mathrm X = x |\mathcal G_{BLUE}) 
+
+&amp; = \sum_{k=1}^{10}  P(\mathrm X = x |m = m_k,\mathcal G_{BLUE})P(m = m_k | \mathcal G_{BLUE}) \\
+
+&amp; = \sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{1}{2}(x-m_k)^T(\frac{I}{5})^{-1}(x - m_k)} \frac{1}{10}  \\
+
+&amp; = \sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{5}{2}\left\|x-m_k\right\|^2} \frac{1}{10}
+\end{split}
+\end{equation}\]</span></p>
 <p>Similarly for ORANGE class:</p>
 <center>
 <p>P(<span class="math inline">\(\mathrm X = x |\mathcal G_{ORANGE}\)</span>)</p>
@@ -427,11 +436,16 @@ Hence for p = 10, a randomly drawn test point is about 3.1 standard deviations f
 <p>Variance: Var(<span class="math inline">\(z_i\)</span>) = <span class="math inline">\(a^T\)</span>Var(<span class="math inline">\(z_i\)</span>)<span class="math inline">\(a\)</span> = <span class="math inline">\(a^T\)</span><span class="math inline">\(I_p\)</span><span class="math inline">\(a\)</span> (because Var(AX) = AVar(X)<span class="math inline">\(A^T\)</span>)</p>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Since <span class="math inline">\(z_i\)</span> ~ N(0,1), <span class="math inline">\(z_i^2\)</span> ~ <span class="math inline">\(\chi^2\)</span> with degrees of freedom 1(by the definition of <span class="math inline">\(\chi^2\)</span> distribution). Hence the mean is 1.</p></li>
-<li><p>Our predicttion point(target point)’s expected squared distance is:</p></li>
+<li><p>Our prediction point(target point)’s expected squared distance is:</p></li>
 </ol>
-<center>
-E(<span class="math inline">\({\left\|x_0 \right\|}^2\)</span>) = <span class="math inline">\(\sum^p_i E(x_{0i}^2)\)</span>=<span class="math inline">\(\sum^p_i (Var(x_{0i}^2) + E(x_{0i})^2)\)</span> = <span class="math inline">\(\sum^p_i Var(x_{0i}^2)\)</span> = <span class="math inline">\(\sum^p_i 1\)</span> = p.
-</center>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+E({\left\|x_0 \right\|}^2) 
+&amp;= \sum^p_i E(x_{0i}^2) \\
+&amp;=\sum^p_i (Var(x_{0i}^2) + E(x_{0i})^2) \\
+&amp;= \sum^p_i Var(x_{0i}^2) = \sum^p_i 1 = p
+\end{split}
+\end{equation}\]</span></p>
 <p>(The covariance maxtrix is <span class="math inline">\(I_p\)</span>)</p>
 <p>Therefore, the distance between our prediction points <span class="math inline">\(X_0\)</span> to the origin is about <span class="math inline">\(\sqrt p\)</span> = <span class="math inline">\(\sqrt 10\)</span> standard deviations, but training points (<span class="math inline">\(z_i\)</span>) have only one standard deviation. Hence the postion <span class="math inline">\(x_0\)</span> is likely to be on the edge of trainning points.</p>
 <hr />
@@ -457,16 +471,16 @@ Given <span class="math inline">\(x_0\)</span>, the expected values of <span cla
 <span class="math inline">\(\hat{\beta} = (X^TX)^{-1}X^Ty\)</span>
 </center>
 <p>Under our model,</p>
-<center>
-<span class="math inline">\(E(\hat{\beta})\)</span> = <span class="math inline">\(E[\beta + (X^TX)^{-1}X^T\epsilon] = \beta\)</span>
-</center>
-<center>
-<span class="math inline">\(Var(\hat{\beta})\)</span>= <span class="math inline">\(Var[(X^TX)^{-1}X^Ty]\)</span> =<span class="math inline">\((X^TX)^{-1}X^T(\sigma^2)X(X^TX)^{-1}\)</span>= <span class="math inline">\((X^TX)^{-1}(\sigma^2)\)</span>
-</center>
+<p><span class="math display">\[\begin{gather*}
+
+E(\hat{\beta}) 
+=  E[\beta + (X^TX)^{-1}X^T\epsilon] = \beta \\
+
+Var(\hat{\beta}) =  Var[(X^TX)^{-1}X^Ty] =  (X^TX)^{-1}X^T(\sigma^2)X(X^TX)^{-1}  = (X^TX)^{-1}(\sigma^2)
+
+\end{gather*}\]</span></p>
 <p>Hence,</p>
-<center>
-<span class="math inline">\(Var(\hat{y_0})\)</span> = <span class="math inline">\(Var(x_0^T\hat{\beta})\)</span> = <span class="math inline">\(x_0^T(X^TX)^{-1}x_0\sigma^2\)</span> (2.5.1)
-</center>
+<p><span class="math inline">\(Var(\hat{y_0})\)</span> = <span class="math inline">\(Var(x_0^T\hat{\beta})\)</span> = <span class="math inline">\(x_0^T(X^TX)^{-1}x_0\sigma^2\)</span> (2.5.1)</p>
 <p>If our estimated <span class="math inline">\(\hat{y_0}\)</span> = <span class="math inline">\(x_0^T\hat{\beta}\)</span>, then:</p>
 <center>
 <span class="math inline">\(E_{\tau}(\hat{y_0})\)</span> = E(<span class="math inline">\(x_0^T\hat{\beta}\)</span>) = <span class="math inline">\(x_0^T\beta\)</span>
@@ -477,27 +491,51 @@ Given <span class="math inline">\(x_0\)</span>, the expected values of <span cla
 <span class="math inline">\(E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]\)</span> = <span class="math inline">\(E_{y_0|x_0}[E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2]\)</span>
 </center>
 <p>First look at the inner expectation term:</p>
-<p><span class="math inline">\(E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2\)</span></p>
-<p>= <span class="math inline">\(E_{\tau}((y_0-E_{\tau}\hat{y_0})^2) + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2E_{\tau}[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-\hat{y_0}]\)</span></p>
-<p>= <span class="math inline">\((y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-E_{\tau}\hat{y_0}]\)</span></p>
-<p>= <span class="math inline">\((y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2\)</span> (2.5.2)</p>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2
+
+&amp; = E_{\tau}((y_0-E_{\tau}\hat{y_0})^2) + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2E_{\tau}[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-\hat{y_0}]\\
+
+&amp; = (y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-E_{\tau}\hat{y_0}] \\
+
+&amp; = (y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2$ (2.5.2)
+\end{split}
+\end{equation}\]</span></p>
 <p>Then decompose <span class="math inline">\(y_0-E_{\tau}\hat{y_0}\)</span> into <span class="math inline">\(y_0-E(y_0|x_0)+E(y_0|x_0)-E_{\tau}\hat{y_0}\)</span>, then 2.5.2 becomes:</p>
-<p><span class="math inline">\((y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2\)</span></p>
+<p><span class="math display">\[\begin{equation}
+(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2
+\end{equation}\]</span></p>
 <p>Hence the inner expectation <span class="math inline">\(E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2\)</span> is:</p>
-<p><span class="math inline">\((y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2\)</span></p>
+<p><span class="math display">\[\begin{equation}
+(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2
+\end{equation}\]</span></p>
 <p>Therefore:</p>
-<p><span class="math inline">\(E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]\)</span></p>
-<p>= <span class="math inline">\(E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2\)</span></p>
-<p>Note:</p>
-<p>(1).<span class="math inline">\(E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 = Var(y_0|x_0)\)</span></p>
-<p>(2).<span class="math inline">\(2 E_{y_0|x_0}[(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0})] = 2 E_{y_0|x_0}(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) = 0\)</span></p>
-<p>(3).<span class="math inline">\((E(y_0|x_0)-E_{\tau}\hat{y_0})^2= Bias(\hat{y_0})^2\)</span></p>
-<p>(4).<span class="math inline">\(E_{y_0|x_0}[E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2] = E_{\tau}E_{\tau}\hat{y_0}-\hat{y_0})^2 = Var_{\tau}(\hat{y_0}))\)</span></p>
+<p><span class="math display">\[\begin{multline*}
+E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]
+
+= E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) \\ + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2
+\end{multline*}\]</span></p>
+<p>Note: <span class="math display">\[\begin{align*} 
+(1)&amp;.E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 = Var(y_0|x_0) \\
+
+(2)&amp;.2 E_{y_0|x_0}[(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0})] = 2 E_{y_0|x_0}(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) = 0 \\
+
+(3)&amp;.(E(y_0|x_0)-E_{\tau}\hat{y_0})^2= Bias(\hat{y_0})^2 \\
+
+(4)&amp;.E_{y_0|x_0}[E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2] = E_{\tau}E_{\tau}\hat{y_0}-\hat{y_0})^2 = Var_{\tau}(\hat{y_0}))
+\end{align*}\]</span></p>
 <p>So we have:</p>
 <center>
 <span class="math inline">\(E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]\)</span> = <span class="math inline">\(Var(y_0|x_0) + Bias(\hat{y_0})^2 +Var_{\tau}(\hat{y_0})\)</span>
 </center>
-<p><em>The conditional variance</em> <span class="math inline">\(Var(y_0|x_0)\)</span> = <span class="math inline">\(Var(x_o^T\beta + \epsilon|x_0)\)</span> = <span class="math inline">\(Var(\epsilon)\)</span> = <span class="math inline">\(\sigma^2\)</span> <em>and</em> <span class="math inline">\(E_{\tau}\hat{y_0} = E(y_0|x_0) = x_0^T\beta\)</span>, so <span class="math inline">\(Bias(\hat{y_0})^2 = 0\)</span></p>
+<p><em>The conditional variance</em> <span class="math display">\[\begin{equation} 
+Var(y_0|x_0) = Var(x_o^T\beta + \epsilon|x_0) = Var(\epsilon) = \sigma^2
+\end{equation}\]</span></p>
+<p><em>and</em> <span class="math display">\[\begin{equation}
+$E_{\tau}\hat{y_0} = E(y_0|x_0) = x_0^T\beta$,
+\end{equation}\]</span></p>
+<p>so <span class="math inline">\(Bias(\hat{y_0})^2 = 0\)</span></p>
 <p><em>From 2.5.1, <span class="math inline">\(Var_{\tau}(\hat{y_0})\)</span> = <span class="math inline">\(E_{\tau}x_0^T(X^TX)^{-1}x_0\sigma^2\)</span>, since we are averaging over traing set </em><span class="math inline">\(\tau\)</span>:</p>
 <center>
 <span class="math inline">\(Var_{\tau}(\hat{y_0})\)</span> = <span class="math inline">\(E_{\tau}x_0^T(X^TX)^{-1}x_0\sigma^2\)</span>
@@ -524,13 +562,25 @@ And:
 </center>
 <p>Note that <span class="math inline">\(x_0^TCov^{-1}(X)x_0\)</span> is 1 by 1 matrix</p>
 <p>The above could be expressed by:</p>
-<p><span class="math inline">\(trace(E_{x_0}[x_0x_0^T\times Cov^{-1}(X)]\sigma^2/N ) +\sigma^2\)</span></p>
-<p>= <span class="math inline">\(trace[E_{x_0}[x_0x_0^T]\times Cov^{-1}(X)]\sigma^2/N + \sigma^2\)</span></p>
-<p>Since <span class="math inline">\(E_{x_0}(x_0^Tx_0)\)</span> = <span class="math inline">\(E_{x_0}(\sum{(X_{0i})^2})\)</span> = <span class="math inline">\(E_{x_0}(\sum{(X_{0i}-0)^2})\)</span> = <span class="math inline">\(E_{x_0}(\sum{(X_{0i}-E(X_0))^2})\)</span> = Cov(X)</p>
-The above is equal to:
-<center>
-<span class="math inline">\(trace[Cov(X)\times Cov^{-1}(X)]\sigma^2/N + \sigma^2\)</span> = <span class="math inline">\(trace(I_p)\sigma^2/N + \sigma^2\)</span>
-</center>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+trace(E_{x_0}[x_0x_0^T\times Cov^{-1}(X)]\sigma^2/N ) +\sigma^2 
+
+&amp; = trace[E_{x_0}[x_0x_0^T]\times Cov^{-1}(X)]\sigma^2/N + \sigma^2
+\end{split}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+Since E_{x_0}(x_0^Tx_0) 
+&amp; = E_{x_0}(\sum{(X_{0i})^2}) \\
+&amp; = E_{x_0}(\sum{(X_{0i}-0)^2}) \\
+&amp; = E_{x_0}(\sum{(X_{0i}-E(X_0))^2}) \\
+&amp; = Cov(X)
+\end{split}
+\end{equation}\]</span></p>
+<p>The above is equal to: <span class="math display">\[\begin{equation}
+trace[Cov(X)\times Cov^{-1}(X)]\sigma^2/N + \sigma^2 = trace(I_p)\sigma^2/N + \sigma^2
+\end{equation}\]</span></p>
 <hr />
 </div>
 <div id="exercise-2.6" class="section level2">
@@ -539,14 +589,31 @@ The above is equal to:
 <p>Consider a regression problem with inputs <span class="math inline">\(x_i\)</span> and outputs <span class="math inline">\(y_i\)</span>, and a parameterized model $f_θ(x) $to be fit by least squares. Show that if there are observations with tied or identical values of x, then the fit can be obtained from a reduced weighted least squares problem.</p>
 <p><strong>Solutions: </strong></p>
 <p>Suppose there are <span class="math inline">\(m_i\)</span> observations at <span class="math inline">\(x_i\)</span> = 1,…,m N = <span class="math inline">\(\sum_{i=1}^{m} {m_i}\)</span> and <span class="math inline">\(\hat y_i\)</span> = <span class="math inline">\(f_{\theta}(x_i)\)</span></p>
-<p>Decompose $y_{ij} - y_i $ into <span class="math inline">\((y_{ij} - \bar y_{i.})\)</span> + <span class="math inline">\((\bar y_{i.} - \hat y_i)\)</span> where <span class="math inline">\(bar y_{i.}\)</span> is the mean of <span class="math inline">\(i_th\)</span> group</p>
-<p>RSS(<span class="math inline">\(\theta\)</span>) = <span class="math inline">\(\sum_{i=1}^{n=N} (y_i - \hat y_i)^2\)</span></p>
-<p>= <span class="math inline">\(\sum_{i=1}^m \sum_{j=1}^{m_i} [(y_{ij} - \bar y_{i.})^2 + 2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i) + (y_{i.} - \hat y_i)^2]\)</span></p>
-<p>First consider the second <span class="math inline">\(\sum_{i=1}^m \sum_{j=1}^{m_i}2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i)\)</span></p>
-<p>= <span class="math inline">\(2\sum_{i=1}^m(y_{i.} - \hat y_i)\sum_{j=1}^{m_i}(y_{ij} - \bar y_{i.})\)</span></p>
-<p>= 0</p>
-<p>The third term = <span class="math inline">\(\sum_{i=1}^m \sum_{j=1}^{m_i} (y_{i.} - \hat y_i)^2\)</span></p>
-<p>= <span class="math inline">\(\sum_{i=1}^m m_i(y_{i.} - \hat y_i)^2\)</span></p>
+<p>Decompose <span class="math inline">\(y_{ij} - \hat y_i\)</span> into <span class="math inline">\((y_{ij} - \bar y_{i.})\)</span> + <span class="math inline">\((\bar y_{i.} - \hat y_i)\)</span> where <span class="math inline">\(bar y_{i.}\)</span> is the mean of <span class="math inline">\(i_th\)</span> group</p>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+RSS(\theta) 
+&amp; = \sum_{i=1}^{n=N} (y_i - \hat y_i)^2 \\
+
+&amp; = \sum_{i=1}^m \sum_{j=1}^{m_i} [(y_{ij} - \bar y_{i.})^2 + 2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i) + (y_{i.} - \hat y_i)^2]
+\end{split}
+\end{equation}\]</span></p>
+<p>First consider the second <span class="math display">\[\begin{equation} 
+\begin{split}
+\sum_{i=1}^m \sum_{j=1}^{m_i}2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i)
+
+&amp; = 2\sum_{i=1}^m(y_{i.} - \hat y_i)\sum_{j=1}^{m_i}(y_{ij} - \bar y_{i.}) \\
+
+&amp; =  0
+\end{split}
+\end{equation}\]</span></p>
+<p>The third term <span class="math display">\[\begin{equation}
+\begin{split}
+\sum_{i=1}^m \sum_{j=1}^{m_i} (y_{i.} - \hat y_i)^2
+
+&amp; =  \sum_{i=1}^m m_i(y_{i.} - \hat y_i)^2
+\end{split}
+\end{equation}\]</span></p>
 <p>If we only need mimize the RSS with respect to <span class="math inline">\(\theta\)</span>, the second term could be ognored.</p>
 <p>Hence our RSS(<span class="math inline">\(\theta\)</span>) = <span class="math inline">\(\sum_{i=1}^m m_i(y_{i.} - \hat y_i)^2\)</span>. Here our our residual squares is weighted by <span class="math inline">\(m_i\)</span>, which is how many identical values of x on each level.</p>
 <hr />
@@ -580,8 +647,12 @@ Suppose we have a sample of N pairs xi, yi drawn i.i.d. from the distribution ch
 <p><strong>Solution: </strong></p>
 <p>Part(a):</p>
 <p>Recall in linear regression, <span class="math inline">\(\beta\)</span> is just a linear combination of the obsercations and it follows with mean <span class="math inline">\(\beta\)</span> and covariance matrix <span class="math inline">\(\sigma^2(X^TX)^{-1}\)</span>:</p>
-<p><span class="math inline">\(\hat y_0 = \hat f(x_0) = {x_0}^T\hat{\beta} = x_0^T(X^TX)^{-1}X^TY\)</span></p>
-<p><span class="math inline">\(\hat{f(x_0)} =\sum_{i=1}^N \ell(x_0;\mathcal X)sy_i\)</span> where <span class="math inline">\(\ell(x_0;\mathcal X)\)</span> = <span class="math inline">\(x_0^T(X^TX)^{-1}X^T\)</span></p>
+<p><span class="math display">\[\begin{equation} 
+\hat y_0 = \hat f(x_0) = {x_0}^T\hat{\beta} = x_0^T(X^TX)^{-1}X^TY
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation} 
+\hat{f(x_0)} =\sum_{i=1}^N \ell(x_0;\mathcal X)sy_i
+\end{equation}\]</span> where <span class="math inline">\(\ell(x_0;\mathcal X)\)</span> = <span class="math inline">\(x_0^T(X^TX)^{-1}X^T\)</span></p>
 <p>Y is N x 1, <span class="math inline">\((X^TX)^{-1}X^T\)</span> is p<span class="math inline">\(\times\)</span>N, <span class="math inline">\(and x_0^T\)</span> is 1<span class="math inline">\(\times\)</span>p.</p>
 <p><span class="math inline">\(\hat f(x_0) = Ave(y_i|x_i \in N_k(x))\)</span> where <span class="math inline">\(N_k(x)\)</span> is the neighbourhood containing x</p>
 <p>We can use an indicator to specify whether the condition:</p>
@@ -589,31 +660,76 @@ Suppose we have a sample of N pairs xi, yi drawn i.i.d. from the distribution ch
 <span class="math inline">\(I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)\)</span>
 </center>
 <p>where <span class="math inline">\(x_{(k)}\)</span> is the training observation ranked kth in distance from <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_i \in N_k(x)\)</span></p>
-<p><span class="math inline">\(\hat f(x_0) = Ave(y_i|x_i \in N_k(x))\)</span> = <span class="math inline">\(\sum_{i=1}^k \frac{1}{k}I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)\)</span></p>
-<p>Hence <span class="math inline">\(\ell(x_0;\mathcal X)\)</span> = <span class="math inline">\(I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)\)</span></p>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+\hat f(x_0) 
+&amp; =  Ave(y_i|x_i \in N_k(x)) \\
+&amp; = \sum_{i=1}^k \frac{1}{k}I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)
+\end{split}
+\end{equation}\]</span></p>
+<p>Hence <span class="math display">\[\begin{equation} 
+\begin{split}
+\ell(x_0;\mathcal X)  
+&amp; = I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|) 
+\end{split}
+\end{equation}\]</span></p>
 <p>Part(b):</p>
-<p><span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span></p>
-<p>= <span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)} + E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2\)</span></p>
-<p>= <span class="math inline">\(E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)})^2\)</span> + <span class="math inline">\(E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2\)</span> + <span class="math inline">\(2E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y|{\mathcal X}}{\hat f(x_0)})\)</span></p>
-<p>The third term is <span class="math inline">\(2E_{\mathcal Y|{\mathcal X}}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)}) = 0\)</span></p>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2
+
+&amp; = E_{\mathcal Y|\mathcal X} (f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)} + E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2 \\
+
+&amp; = E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)})^2 
++ E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat  f(x_0)} - \hat f{(x_0)})^2
++ 2E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y|{\mathcal X}}{\hat f(x_0)}) 
+
+\end{split}
+\end{equation}\]</span></p>
+<p>The third term is <span class="math display">\[\begin{equation}
+2E_{\mathcal Y|{\mathcal X}}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)}) = 0
+\end{equation}\]</span></p>
 Hence
 <center>
 <span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span> = <span class="math inline">\(Var(\hat f(x_0)|\mathcal X)\)</span> + <span class="math inline">\(Bias(\hat f{(x_0)}|\mathcal X)^2\)</span>
 </center>
 <p>Part(c):</p>
 <p>Similarl to part(b):</p>
-<p><span class="math inline">\(E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span></p>
-<p>= <span class="math inline">\(E_{\mathcal Y,\mathcal X}(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})^2\)</span> + <span class="math inline">\(E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2\)</span> + <span class="math inline">\(2E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})\)</span></p>
-<p>= <span class="math inline">\(Var(\hat f(x_0))\)</span> + <span class="math inline">\(Bias(\hat f{(x_0)})^2\)</span></p>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2
+
+
+&amp; =  E_{\mathcal Y,\mathcal X}(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})^2 
++ E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2
++ 2E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)}) \\
+
+
+&amp; =  Var(\hat f(x_0)) + Bias(\hat f{(x_0)})^2 
+\end{split}
+\end{equation}\]</span></p>
 <p>part(d):</p>
 <p>We can factor the joint density into the f(X,Y) = f(Y|X)Pr(X) = f(Y|X)h(<span class="math inline">\(\mathcal X\)</span>)</p>
-<p><span class="math inline">\(E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span> = <span class="math inline">\(\int (f(x_0) − \hat f{(x_0)} )^2f(Y|X)\)</span></p>
-<p><span class="math inline">\(E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span></p>
-<p>=<span class="math inline">\(\int \int (f(x_0) − \hat f{(x_0)} )^2f(X,Y)\)</span></p>
-<p>=<span class="math inline">\(\int \int (f(x_0) − \hat f{(x_0)} )^2f(Y|X)h(\mathcal X)\)</span></p>
-<p>Hence <span class="math inline">\(E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2\)</span> = <span class="math inline">\(E_{\mathcal X}[E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2]\)</span></p>
+<p><span class="math display">\[\begin{equation} 
+\begin{split}
+E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2
+&amp; = \int  (f(x_0) − \hat f{(x_0)} )^2f(Y|X)
+
+E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2 \\
+
+&amp; =\int \int (f(x_0) − \hat f{(x_0)} )^2f(X,Y) \\
+
+&amp; =\int \int (f(x_0) − \hat f{(x_0)} )^2f(Y|X)h(\mathcal X)
+\end{split}
+\end{equation}\]</span></p>
+<p>Hence <span class="math display">\[\begin{equation}
+E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2 = 
+E_{\mathcal X}[E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2]
+\end{equation}\]</span></p>
 <p>The relationship between the decompositions is</p>
-<p><span class="math inline">\(Var(\hat f(x_0))\)</span> + <span class="math inline">\(Bias(\hat f{(x_0)})^2\)</span> = <span class="math inline">\(\int [Var(\hat f(x_0)|\mathcal X) + Bias(\hat f{(x_0)}|\mathcal X)^2] h(\mathcal X)\)</span></p>
+<p><span class="math display">\[\begin{equation}
+Var(\hat f(x_0)) + Bias(\hat f{(x_0)})^2 = \int [Var(\hat f(x_0)|\mathcal X) + Bias(\hat f{(x_0)}|\mathcal X)^2] h(\mathcal X)
+\end{equation}\]</span></p>
 <hr />
 </div>
 

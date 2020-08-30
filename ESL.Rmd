@@ -25,16 +25,19 @@ Also I found the third chapter related much to my regression course that have be
 
 If $\hat{y}$ sums to one and assume we are using Euclidean Distance:
 
-<center>
-$argmin_k\left\|t_k-\hat{y}\right\| =argmin_k\left\|t_k-\hat{y}\right\|^2$
-</center>
 
-<center>
-$\left\|t_k-\hat{y}\right\|^2$
-= $(t_k-\hat{y})^T(t_k-\hat{y})$ 
-= $t_k^Tt_k-2t_k^T\hat{y}+\hat{y}^T\hat{y}$
-= 1+$\hat{y}^T\hat{y}$-2$\hat{y}_k$
-</center>
+\being{equation}
+$argmin_k\left\|t_k-\hat{y}\right\| = argmin_k\left\|t_k-\hat{y}\right\|^2$
+\end{equation}
+
+\begin{equation} 
+\begin{split}
+\left\|t_k-\hat{y}\right\|^2
+& = (t_k-\hat{y})^T(t_k-\hat{y}) \\
+& = t_k^Tt_k-2t_k^T\hat{y}+\hat{y}^T\hat{y} \\
+& = 1+\hat{y}^T\hat{y}-2\hat{y}_k 
+\end{split}
+\end{equation}
 
 Since 1 +$\hat{y}^T\hat{y}$ is constant:
 
@@ -77,15 +80,18 @@ P($\mathcal G_{ORANGE}$) = 1/2
 
 Likelihood:
 
-<center>
-P($\mathrm X = x |\mathcal G_{BLUE}$) 
+\begin{equation} 
+\begin{split}
+P(\mathrm X = x |\mathcal G_{BLUE}) 
 
-= $\sum_{k=1}^{10}  P(\mathrm X = x |m = m_k,\mathcal G_{BLUE})P(m = m_k | \mathcal G_{BLUE})$ 
+& = \sum_{k=1}^{10}  P(\mathrm X = x |m = m_k,\mathcal G_{BLUE})P(m = m_k | \mathcal G_{BLUE}) \\
 
-= $\sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{1}{2}(x-m_k)^T(\frac{I}{5})^{-1}(x - m_k)} \frac{1}{10}$ 
+& = \sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{1}{2}(x-m_k)^T(\frac{I}{5})^{-1}(x - m_k)} \frac{1}{10}  \\
 
-= $\sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{5}{2}\left\|x-m_k\right\|^2} \frac{1}{10}$
-</center>
+& = \sum_{k=1}^{10} (2\pi)^{-1} (\frac{I}{5})^{-1/2} e^{-\frac{5}{2}\left\|x-m_k\right\|^2} \frac{1}{10}
+\end{split}
+\end{equation} 
+
 
 
 Similarly for ORANGE class:
@@ -201,11 +207,17 @@ Hence the projections $z_i$ are normally distributed. Furthermore,
 Since $z_i$ ~ N(0,1), $z_i^2$ ~ $\chi^2$ with degrees of freedom 1(by the definition of $\chi^2$ distribution). Hence the mean is 1.
 
 3.  
-Our predicttion point(target point)'s expected squared distance is:
+Our prediction point(target point)'s expected squared distance is:
 
-<center>
-E(${\left\|x_0 \right\|}^2$) = $\sum^p_i E(x_{0i}^2)$=$\sum^p_i (Var(x_{0i}^2) + E(x_{0i})^2)$ = $\sum^p_i Var(x_{0i}^2)$ = $\sum^p_i 1$ = p.
-</center>
+\begin{equation} 
+\begin{split}
+E({\left\|x_0 \right\|}^2) 
+&= \sum^p_i E(x_{0i}^2) \\
+&=\sum^p_i (Var(x_{0i}^2) + E(x_{0i})^2) \\
+&= \sum^p_i Var(x_{0i}^2) = \sum^p_i 1 = p
+\end{split}
+\end{equation}
+
 (The covariance maxtrix is $I_p$)
 
 
@@ -244,20 +256,20 @@ Our least-square estimator derived from normal equations:
 
 Under our model, 
 
-<center>
-$E(\hat{\beta})$ = $E[\beta + (X^TX)^{-1}X^T\epsilon] = \beta$
-</center>
+\begin{gather*}
 
+E(\hat{\beta}) 
+=  E[\beta + (X^TX)^{-1}X^T\epsilon] = \beta \\
 
-<center>
-$Var(\hat{\beta})$= $Var[(X^TX)^{-1}X^Ty]$ =$(X^TX)^{-1}X^T(\sigma^2)X(X^TX)^{-1}$= $(X^TX)^{-1}(\sigma^2)$
-</center>
+Var(\hat{\beta}) =  Var[(X^TX)^{-1}X^Ty] =  (X^TX)^{-1}X^T(\sigma^2)X(X^TX)^{-1}  = (X^TX)^{-1}(\sigma^2)
+
+\end{gather*}
 
 Hence,
 
-<center>
+
 $Var(\hat{y_0})$ = $Var(x_0^T\hat{\beta})$ = $x_0^T(X^TX)^{-1}x_0\sigma^2$ (2.5.1)
-</center>
+
 
 
 If our estimated $\hat{y_0}$ = $x_0^T\hat{\beta}$, then:
@@ -274,43 +286,54 @@ $E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]$ = $E_{y_0|x_0}[E_{\tau}[(y_0-E_{\tau}\h
 
 First look at the inner expectation term: 
 
-$E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2$
+\begin{equation}
+\begin{split}
+E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2
 
-= $E_{\tau}((y_0-E_{\tau}\hat{y_0})^2) + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2E_{\tau}[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-\hat{y_0}]$
+& = E_{\tau}((y_0-E_{\tau}\hat{y_0})^2) + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2E_{\tau}[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-\hat{y_0}]\\
 
-= $(y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-E_{\tau}\hat{y_0}]$
+& = (y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2 +2[y_0-E_{\tau}\hat{y_0}][E_{\tau}\hat{y_0}-E_{\tau}\hat{y_0}] \\
 
-= $(y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2$ (2.5.2)
+& = (y_0-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2$ (2.5.2)
+\end{split}
+\end{equation}
+
 
 Then decompose $y_0-E_{\tau}\hat{y_0}$ into $y_0-E(y_0|x_0)+E(y_0|x_0)-E_{\tau}\hat{y_0}$, then 2.5.2 becomes:
 
-
-$(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2$
+\begin{equation}
+(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2
+\end{equation}
 
 
 
 Hence the inner expectation $E_{\tau}[(y_0-E_{\tau}\hat{y_0})+(E_{\tau}\hat{y_0}-\hat{y_0})]^2$ is:
 
-
-$(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2$
+\begin{equation}
+(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2
+\end{equation}
 
 
 
 Therefore:
 
-$E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]$
+\begin{multline*}
+E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]
 
-= $E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2$
+= E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 + 2(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) \\ + (E(y_0|x_0)-E_{\tau}\hat{y_0})^2 + E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2
+\end{multline*}
+
 
 Note:
+\begin{align*} 
+(1)&.E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 = Var(y_0|x_0) \\
 
-(1).$E_{y_0|x_0}[(y_0-E(y_0|x_0))^2 = Var(y_0|x_0)$
+(2)&.2 E_{y_0|x_0}[(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0})] = 2 E_{y_0|x_0}(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) = 0 \\
 
-(2).$2 E_{y_0|x_0}[(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0})] = 2 E_{y_0|x_0}(y_0-E(y_0|x_0))(E(y_0|x_0)-E_{\tau}\hat{y_0}) = 0$
+(3)&.(E(y_0|x_0)-E_{\tau}\hat{y_0})^2= Bias(\hat{y_0})^2 \\
 
-(3).$(E(y_0|x_0)-E_{\tau}\hat{y_0})^2= Bias(\hat{y_0})^2$
-
-(4).$E_{y_0|x_0}[E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2] = E_{\tau}E_{\tau}\hat{y_0}-\hat{y_0})^2 = Var_{\tau}(\hat{y_0}))$
+(4)&.E_{y_0|x_0}[E_{\tau}(E_{\tau}\hat{y_0}-\hat{y_0})^2] = E_{\tau}E_{\tau}\hat{y_0}-\hat{y_0})^2 = Var_{\tau}(\hat{y_0}))
+\end{align*}
 
 So we have:
 
@@ -319,8 +342,17 @@ $E_{y_0|x_0}[E_{\tau}(y_0-\hat{y_0})^2]$ = $Var(y_0|x_0) + Bias(\hat{y_0})^2 +Va
 </center>
 
 
-*The conditional variance* $Var(y_0|x_0)$ = $Var(x_o^T\beta + \epsilon|x_0)$ = $Var(\epsilon)$ = $\sigma^2$ *and*
-$E_{\tau}\hat{y_0} = E(y_0|x_0) = x_0^T\beta$, so $Bias(\hat{y_0})^2 = 0$
+*The conditional variance* 
+\begin{equation} 
+Var(y_0|x_0) = Var(x_o^T\beta + \epsilon|x_0) = Var(\epsilon) = \sigma^2
+\end{equation} 
+
+*and*
+\begin{equation}
+$E_{\tau}\hat{y_0} = E(y_0|x_0) = x_0^T\beta$,
+\end{equation} 
+
+so $Bias(\hat{y_0})^2 = 0$
 
 *From 2.5.1, $Var_{\tau}(\hat{y_0})$ = $E_{\tau}x_0^T(X^TX)^{-1}x_0\sigma^2$, since we are averaging over traing set *$\tau$:
 
@@ -359,19 +391,28 @@ Note that $x_0^TCov^{-1}(X)x_0$ is 1 by 1 matrix
 
 The above could be expressed by:
 
+\begin{equation} 
+\begin{split}
+trace(E_{x_0}[x_0x_0^T\times Cov^{-1}(X)]\sigma^2/N ) +\sigma^2 
 
-$trace(E_{x_0}[x_0x_0^T\times Cov^{-1}(X)]\sigma^2/N ) +\sigma^2$
+& = trace[E_{x_0}[x_0x_0^T]\times Cov^{-1}(X)]\sigma^2/N + \sigma^2
+\end{split}
+\end{equation}
 
-= $trace[E_{x_0}[x_0x_0^T]\times Cov^{-1}(X)]\sigma^2/N + \sigma^2$
-
-
-Since $E_{x_0}(x_0^Tx_0)$ = $E_{x_0}(\sum{(X_{0i})^2})$ = $E_{x_0}(\sum{(X_{0i}-0)^2})$ = $E_{x_0}(\sum{(X_{0i}-E(X_0))^2})$ = Cov(X)
-
+\begin{equation} 
+\begin{split}
+Since E_{x_0}(x_0^Tx_0) 
+& = E_{x_0}(\sum{(X_{0i})^2}) \\
+& = E_{x_0}(\sum{(X_{0i}-0)^2}) \\
+& = E_{x_0}(\sum{(X_{0i}-E(X_0))^2}) \\
+& = Cov(X)
+\end{split}
+\end{equation}
 
 The above is equal to:
-<center>
-$trace[Cov(X)\times Cov^{-1}(X)]\sigma^2/N + \sigma^2$ = $trace(I_p)\sigma^2/N + \sigma^2$
-</center>
+\begin{equation}
+trace[Cov(X)\times Cov^{-1}(X)]\sigma^2/N + \sigma^2 = trace(I_p)\sigma^2/N + \sigma^2
+\end{equation}
 
 ***
 
@@ -388,22 +429,37 @@ Suppose  there are $m_i$ observations at $x_i$ = 1,...,m
 N = $\sum_{i=1}^{m} {m_i}$
 and $\hat y_i$ = $f_{\theta}(x_i)$
 
-Decompose $y_{ij} - \hat y_i $ into $(y_{ij} - \bar y_{i.})$ + $(\bar y_{i.} - \hat y_i)$ where $bar y_{i.}$ is the mean of $i_th$ group
+Decompose $y_{ij} - \hat y_i$ into $(y_{ij} - \bar y_{i.})$ + $(\bar y_{i.} - \hat y_i)$ where $bar y_{i.}$ is the mean of $i_th$ group
 
-RSS($\theta$) = $\sum_{i=1}^{n=N} (y_i - \hat y_i)^2$
 
-= $\sum_{i=1}^m \sum_{j=1}^{m_i} [(y_{ij} - \bar y_{i.})^2 + 2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i) + (y_{i.} - \hat y_i)^2]$
+\begin{equation}
+\begin{split}
+RSS(\theta) 
+& = \sum_{i=1}^{n=N} (y_i - \hat y_i)^2 \\
 
-First consider the second $\sum_{i=1}^m \sum_{j=1}^{m_i}2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i)$
+& = \sum_{i=1}^m \sum_{j=1}^{m_i} [(y_{ij} - \bar y_{i.})^2 + 2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i) + (y_{i.} - \hat y_i)^2]
+\end{split}
+\end{equation}
 
-= $2\sum_{i=1}^m(y_{i.} - \hat y_i)\sum_{j=1}^{m_i}(y_{ij} - \bar y_{i.})$
+First consider the second 
+\begin{equation} 
+\begin{split}
+\sum_{i=1}^m \sum_{j=1}^{m_i}2(y_{ij} - \bar y_{i.})(y_{i.} - \hat y_i)
 
-=  0
+& = 2\sum_{i=1}^m(y_{i.} - \hat y_i)\sum_{j=1}^{m_i}(y_{ij} - \bar y_{i.}) \\
 
-The third term = $\sum_{i=1}^m \sum_{j=1}^{m_i} (y_{i.} - \hat y_i)^2$
+& =  0
+\end{split}
+\end{equation}
 
-=  $\sum_{i=1}^m m_i(y_{i.} - \hat y_i)^2$
+The third term
+\begin{equation}
+\begin{split}
+\sum_{i=1}^m \sum_{j=1}^{m_i} (y_{i.} - \hat y_i)^2
 
+& =  \sum_{i=1}^m m_i(y_{i.} - \hat y_i)^2
+\end{split}
+\end{equation}
 
 If we only need mimize the RSS with respect to $\theta$, the second term could be ognored.
 
@@ -458,9 +514,13 @@ Part(a):
 
 Recall in linear regression, $\beta$ is just a linear combination of the obsercations and it follows with mean $\beta$ and covariance matrix $\sigma^2(X^TX)^{-1}$:
 
-$\hat y_0 = \hat f(x_0) = {x_0}^T\hat{\beta} = x_0^T(X^TX)^{-1}X^TY$
+\begin{equation} 
+\hat y_0 = \hat f(x_0) = {x_0}^T\hat{\beta} = x_0^T(X^TX)^{-1}X^TY
+\end{equation} 
 
-$\hat{f(x_0)} =\sum_{i=1}^N \ell(x_0;\mathcal X)sy_i$
+\begin{equation} 
+\hat{f(x_0)} =\sum_{i=1}^N \ell(x_0;\mathcal X)sy_i
+\end{equation} 
 where $\ell(x_0;\mathcal X)$ = $x_0^T(X^TX)^{-1}X^T$
 
 Y is N x 1, $(X^TX)^{-1}X^T$ is p$\times$N, $and x_0^T$ is 1$\times$p.
@@ -474,27 +534,44 @@ $I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)$
 </center>
 
 
-where $x_{(k)}$ is the training observation ranked kth in distance from $x_0$ and $x_i \in N_k(x)$ 
+where $x_{(k)}$ is the training observation ranked kth in distance from $x_0$ 
+and $x_i \in N_k(x)$ 
 
- 
-$\hat f(x_0) =  Ave(y_i|x_i \in N_k(x))$
-= $\sum_{i=1}^k \frac{1}{k}I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)$
+\begin{equation} 
+\begin{split}
+\hat f(x_0) 
+& =  Ave(y_i|x_i \in N_k(x)) \\
+& = \sum_{i=1}^k \frac{1}{k}I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)
+\end{split}
+\end{equation} 
 
-Hence $\ell(x_0;\mathcal X)$  = $I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|)$
-
-
+Hence 
+\begin{equation} 
+\begin{split}
+\ell(x_0;\mathcal X)  
+& = I(\left\|x_i-x_0\right\| \le \left\|x_{(k)}-x_0\right\|) 
+\end{split}
+\end{equation} 
 
 Part(b):
 
-$E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2$
+\begin{equation} 
+\begin{split}
+E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2
 
-= $E_{\mathcal Y|\mathcal X} (f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)} + E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2$
+& = E_{\mathcal Y|\mathcal X} (f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)} + E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2 \\
 
-= $E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)})^2$ 
-+ $E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat  f(x_0)} - \hat f{(x_0)})^2$ 
-+ $2E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y|{\mathcal X}}{\hat f(x_0)})$ 
+& = E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)})^2 
++ E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat  f(x_0)} - \hat f{(x_0)})^2
++ 2E_{\mathcal Y|\mathcal X}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y|{\mathcal X}}{\hat f(x_0)}) 
 
-The third term is $2E_{\mathcal Y|{\mathcal X}}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)}) = 0$ 
+\end{split}
+\end{equation}
+
+The third term is 
+\begin{equation}
+2E_{\mathcal Y|{\mathcal X}}(E_{\mathcal Y|\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})E_{\mathcal Y|\mathcal X}(f(x_0) − E_{\mathcal Y|\mathcal X}{\hat f(x_0)}) = 0
+\end{equation}
 
 
 Hence
@@ -507,36 +584,51 @@ Part(c):
 
 Similarl to part(b):
 
-$E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2$
+\begin{equation}
+\begin{split}
+E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2
 
-= $E_{\mathcal Y,\mathcal X}(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})^2$ 
-+ $E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2$ 
-+ $2E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})$
 
-= $Var(\hat f(x_0))$ + $Bias(\hat f{(x_0)})^2$ 
+& =  E_{\mathcal Y,\mathcal X}(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)})^2 
++ E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})^2
++ 2E_{\mathcal Y,\mathcal X}(E_{\mathcal Y,\mathcal X}{\hat f(x_0)} - \hat f{(x_0)})(f(x_0) − E_{\mathcal Y,\mathcal X}{\hat f(x_0)}) \\
+
+
+& =  Var(\hat f(x_0)) + Bias(\hat f{(x_0)})^2 
+\end{split}
+\end{equation}
+
+
 
 part(d):
 
 We can factor the joint density into the 
 f(X,Y) = f(Y|X)Pr(X) = f(Y|X)h($\mathcal X$)
 
-$E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2$
-= $\int  (f(x_0) − \hat f{(x_0)} )^2f(Y|X)$
+\begin{equation} 
+\begin{split}
+E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2
+& = \int  (f(x_0) − \hat f{(x_0)} )^2f(Y|X)
 
-$E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2$
+E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2 \\
 
-=$\int \int (f(x_0) − \hat f{(x_0)} )^2f(X,Y)$
+& =\int \int (f(x_0) − \hat f{(x_0)} )^2f(X,Y) \\
 
-=$\int \int (f(x_0) − \hat f{(x_0)} )^2f(Y|X)h(\mathcal X)$
+& =\int \int (f(x_0) − \hat f{(x_0)} )^2f(Y|X)h(\mathcal X)
+\end{split}
+\end{equation}
 
-
-Hence $E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2$ = 
-$E_{\mathcal X}[E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2]$
+Hence
+\begin{equation}
+E_{\mathcal Y,\mathcal X} (f(x_0) − \hat f{(x_0)} )^2 = 
+E_{\mathcal X}[E_{\mathcal Y|\mathcal X} (f(x_0) − \hat f{(x_0)} )^2]
+\end{equation}
 
 The relationship between the decompositions is 
 
-$Var(\hat f(x_0))$ + $Bias(\hat f{(x_0)})^2$ = $\int [Var(\hat f(x_0)|\mathcal X) + Bias(\hat f{(x_0)}|\mathcal X)^2] h(\mathcal X)$
-
+\begin{equation}
+Var(\hat f(x_0)) + Bias(\hat f{(x_0)})^2 = \int [Var(\hat f(x_0)|\mathcal X) + Bias(\hat f{(x_0)}|\mathcal X)^2] h(\mathcal X)
+\end{equation}
 
 ***
 

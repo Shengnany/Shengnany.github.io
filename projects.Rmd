@@ -15,7 +15,7 @@ My solutions to this book's exercises could be found here
 
 * ### Survival Analysis
 
-Check my related projects [here](https://github.com/Shengnany/Statistical-Computing)
+Check my related projects [here](https://github.com/Shengnany/Survival-Analysis)
 
 
 * ### Bayesian Inference
