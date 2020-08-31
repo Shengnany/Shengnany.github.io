@@ -1,7 +1,60 @@
 ---
 title: "Shengnan You"
 ---
-
 “The most important questions of life are indeed, for the most part, really only problems of probability.” ——— Pierre-Simon Laplace
 
+
+
+> ## Projects
+
+* ### Regression Analysis
+
+Check out my AMS578 course project report: [here](files/Project_Report.pdf).
+
+* ### Elements of Statistical learning
+
+Recommended by my professor, I started to study this book. This book explains data mining model in a simple way.
+My solutions to this book's exercises could be found here
+- [Exerercise](ESL.html)
+
+
+* ### Survival Analysis
+
+Check my related projects [here](https://github.com/Shengnany/Survival-Analysis)
+
+
+* ### Bayesian Inference
+
+-[My Bayesian Inference Project](https://github.com/Shengnany/Bayesian-Inference)
+
+-My solutions to ["A First Course in Bayesian Statistical Methods"](C3-solutions-hoff.html) by Peter D. Hoff, 
+
+***
+
+> ## Courses
+
+### Graduate Courses taken 
+
+
+* AMS 578 Regression Analysis
+
+  My course project is in [here](https://github.com/Shengnany/Regression-Analysis)
+
+* AMS 597 Statistical Computing 
+
+  My course project is in [here](https://github.com/Shengnany/Statistical-Computing)
+
+
+### Undergraduate Courses
+
+
+* #### CSE351 Data Science
+
+Check my CSE351 course project [here](https://github.com/Shengnany/Data-Science/blob/master/CSE351%20Final%20Project/Final%20Project.pdf)
+
+* #### CSE214 Data Structure
+[Course Assignments and Projects](https://github.com/Shengnany/Data-Structures)
+
+* #### CSE373 Algorithms
+[Practice](https://github.com/Shengnany/Algorithms)
 

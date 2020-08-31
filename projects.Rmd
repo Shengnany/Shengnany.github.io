@@ -20,5 +20,6 @@ Check my related projects [here](https://github.com/Shengnany/Survival-Analysis)
 
 * ### Bayesian Inference
 
-[My Bayesian Inference Project](https://github.com/Shengnany/Bayesian-Inference)
+-[My Bayesian Inference Project](https://github.com/Shengnany/Bayesian-Inference)
 
+-My solutions to ["A First Course in Bayesian Statistical Methods"](C3-solutions-hoff.html) by Peter D. Hoff, 

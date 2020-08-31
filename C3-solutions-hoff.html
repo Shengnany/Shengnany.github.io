@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>C3-One-parameter-models</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">About me</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="courses.html">Courses</a>
+</li>
+<li>
+  <a href="projects.html">Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="contact.html">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/Shengnany">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/shengnan-you-08815717a/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">C3-One-parameter-models</h1>
+
+</div>
+
+
+<div id="sample-survey" class="section level3">
+<h3>3.1 Sample survey</h3>
+<p><em>Question</em> Suppose we are going to sample 100 individuals from a county (of size much larger than 100) and ask each sampled person whether they support policy Z or not. Let <span class="math inline">\(Y_i\)</span> = 1 if person <span class="math inline">\(i\)</span> in the sample supports the policy, and <span class="math inline">\(Y_i = 0\)</span> otherwise.</p>
+<div id="a." class="section level4">
+<h4>(a).</h4>
+<p>Assume <span class="math inline">\(Y_1\)</span>, . . . , <span class="math inline">\(Y_100\)</span> are, conditional on <span class="math inline">\(\theta\)</span>, i.i.d. binary random variables with expectation <span class="math inline">\(\theta\)</span>. Write down the joint distribution of Pr(<span class="math inline">\(Y_1\)</span> = <span class="math inline">\(y_1\)</span>, . . . , <span class="math inline">\(Y_100\)</span> = <span class="math inline">\(y_100\)</span>|<span class="math inline">\(\theta\)</span>) in a compact form. Also write down the form of Pr(<span class="math inline">\(\sum Y_i\)</span> = y|<span class="math inline">\(\theta\)</span>).</p>
+<p>Sampling from a binomial model:</p>
+<center>
+Pr( <span class="math inline">\(Y_1\)</span> =<span class="math inline">\(y_1\)</span>, . . . , <span class="math inline">\(Y_100\)</span> = <span class="math inline">\(y_100\)</span> | <span class="math inline">\(\theta\)</span> ) = <span class="math inline">\(\theta^{\sum y_i} (1 - \theta)^{100 - \sum y_i}\)</span>
+</center>
+<center>
+Pr( <span class="math inline">\(\sum Y_i\)</span> = y | <span class="math inline">\(\theta\)</span> ) = <span class="math inline">\({100 \choose y} \theta^y(1 - \theta)^{100 - y}\)</span>
+</center>
+</div>
+<div id="b." class="section level4">
+<h4>(b).</h4>
+<p>For the moment, suppose you believed that <span class="math inline">\(\theta\)</span> <span class="math inline">\(\in\)</span> {0.0, 0.1, . . . , 0.9, 1.0}. Given that the results of the survey were <span class="math inline">\(\sum^{100}_{i=1} Y_i\)</span> = 57, compute Pr(<span class="math inline">\(\sum^{100}_{i=1} Y_i\)</span> i = 57 | <span class="math inline">\(\theta\)</span>) for each of these 11 values of <span class="math inline">\(\theta\)</span> and plot these probabilities as a function of <span class="math inline">\(\theta\)</span>.</p>
+<pre class="r"><code>sum &lt;- 57
+count &lt;- 100
+theta &lt;- seq(0, 0.9, by = 0.1)
+lh &lt;- sapply(theta,function(x)dbinom(sum,count,x))
+df &lt;- data.frame(theta = theta, probability = lh)
+print(round(df, 3))</code></pre>
+<pre><code>##    theta probability
+## 1    0.0       0.000
+## 2    0.1       0.000
+## 3    0.2       0.000
+## 4    0.3       0.000
+## 5    0.4       0.000
+## 6    0.5       0.030
+## 7    0.6       0.067
+## 8    0.7       0.002
+## 9    0.8       0.000
+## 10   0.9       0.000</code></pre>
+<pre class="r"><code>library(ggplot2)
+p&lt;-ggplot(data=df, aes(x=theta, y=lh)) +
+  geom_bar(stat=&quot;identity&quot;, fill=&quot;steelblue&quot;) +
+  scale_x_continuous(breaks = theta) +
+  theme_minimal() 
+p</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
+<div id="c." class="section level4">
+<h4>(c).</h4>
+<p>Now suppose you originally had no prior information to believe one of these θ-values over another, and so Pr(<span class="math inline">\(\theta\)</span> = 0.0) = Pr(<span class="math inline">\(\theta\)</span> = 0.1) = · · · = Pr(<span class="math inline">\(\theta\)</span> = 0.9) = Pr(<span class="math inline">\(\theta\)</span> = 1.0). Use Bayes’ rule to compute p(<span class="math inline">\(\theta\)</span>| <span class="math inline">\(\sum_n^{i=1} Y_i\)</span> =57) for each <span class="math inline">\(\theta\)</span>-value. Make a plot of this posterior distribution as a function of <span class="math inline">\(\theta\)</span>. We have a prior p(<span class="math inline">\(\theta_i\)</span>) = <span class="math inline">\(\frac{1}{11}\)</span> for every <span class="math inline">\(\theta_i\)</span>, hence it got cancelled out. Bayes’ rule gives us:</p>
+<center>
+p(<span class="math inline">\(\theta\)</span>| <span class="math inline">\(\sum_n^{i=1} Y_i\)</span> = 57) = <span class="math inline">\(\frac{p(\sum Y_i = 57 |\theta)}{\sum_{\theta_i} p(\sum Y_i = 57 |\theta_i)}\)</span>
+</center>
+<pre class="r"><code>#A uniform prior = 1/11
+denom &lt;- sum(lh)
+pos &lt;- sapply(theta, function(theta) dbinom(sum, count , theta)  / denom)
+df &lt;- data.frame(theta = theta, posterior = pos)
+print(round(df, 3))</code></pre>
+<pre><code>##    theta posterior
+## 1    0.0     0.000
+## 2    0.1     0.000
+## 3    0.2     0.000
+## 4    0.3     0.000
+## 5    0.4     0.002
+## 6    0.5     0.304
+## 7    0.6     0.675
+## 8    0.7     0.019
+## 9    0.8     0.000
+## 10   0.9     0.000</code></pre>
+<pre class="r"><code>ggplot(df,aes(x = theta, y = posterior)) +
+  geom_bar(stat = &#39;identity&#39;, fill=&quot;steelblue&quot;) +
+  scale_x_continuous(breaks = theta) +
+  theme_minimal()</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="d." class="section level4">
+<h4>(d).</h4>
+<p>Now suppose you allow <span class="math inline">\(\theta\)</span> to be any value in the interval [0, 1]. Using the uniform prior density for θ, so that p(<span class="math inline">\(\theta\)</span>) = 1, plot the posterior density p(<span class="math inline">\(\theta\)</span>) × Pr(<span class="math inline">\(\sum_{i=1}^n Y_i = 57\)</span> | <span class="math inline">\(\theta\)</span>) as a function of <span class="math inline">\(\theta\)</span>.</p>
+<p>We have a prior distribution <span class="math inline">\(p(\theta)\)</span> of beta(1,1)</p>
+<p>and a sampling model: <span class="math display">\[\begin{equation}
+p(y_1, . . . , y_n|\theta) = \theta^{\sum_{i=1}^n}(1 - \theta)^{n-\sum_{i=1}^n}
+\end{equation}\]</span></p>
+<pre class="r"><code>theta2 &lt;- seq(from=0, to=1, by = 0.001)
+lh2 &lt;- sapply(theta2, function(theta2) dbinom(sum, count,theta2))
+qplot(theta2, lh2, geom=&#39;line&#39;)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="e." class="section level4">
+<h4>(e).</h4>
+<p>As discussed in this chapter, the posterior distribution of <span class="math inline">\(\theta\)</span> is beta(1 + 57, 1 + 100 − 57). Plot the posterior density as a function of <span class="math inline">\(\theta\)</span>. Discuss the relationships among all of the plots you have made for this exercise.</p>
+<pre class="r"><code>qplot(theta2, dbeta(theta2, 1+57, 1+100-57), geom = &#39;line&#39;)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<hr />
+</div>
+</div>
+<div id="sensitivity-analysis" class="section level3">
+<h3>3.2 Sensitivity analysis</h3>
+<p>It is sometimes useful to express the parameters a and b in a beta distribution in terms of <span class="math inline">\(\theta_0\)</span> = a/(a + b) and <span class="math inline">\(n_0\)</span> = a + b, so that a = <span class="math inline">\(\theta_0 n_0\)</span> and b = (1 − <span class="math inline">\(\theta_0\)</span>)<span class="math inline">\(n_0\)</span>. Reconsidering the sample survey data in Exercise 3.1, for each combination of <span class="math inline">\(\theta_0\)</span> ∈ {0.1, 0.2, . . . , 0.9} and <span class="math inline">\(n_0\)</span> ∈ {1, 2, 8, 16, 32} find the corresponding a, b values and compute Pr(<span class="math inline">\(\theta &gt; 0.5| \sum Y_i = 57\)</span>) using a beta(a, b) prior distribution for <span class="math inline">\(\theta\)</span>. Display the results with a contour plot, and discuss how the plot could be used to explain to someone whether or not they should believe that <span class="math inline">\(\theta\)</span> &gt; 0.5, based on the data that <span class="math inline">\(\sum_{i=1}^{100} Y_i = 57\)</span>)</p>
+<pre class="r"><code># par(mar=c(3,3,1,1),mgp=c(1.75,.75,0))
+par(mfrow=c(1,2))
+g&lt;-11
+th0&lt;-seq(0,1,,by =0.1)
+n0&lt;-c(1,2,4,6,8,12,16,20,24,28,32)
+
+y&lt;-57 ; n&lt;-100
+
+PP10&lt;-PM&lt;-PLQ&lt;-PUQ&lt;-matrix(0,g,g)
+for(i in 1:g) {for(j in 1:g) {
+# Corresponding a and b values:
+ a&lt;-n0[i]*th0[j]
+ b&lt;-n0[i]*(1-th0[j]) 
+   
+ PM[i,j]&lt;- (a+y)/(a+y+b+n-y) 
+ pbeta
+ PP10[i,j]&lt;- 1-pbeta(.5,a+y,b+n-y)
+ PLQ[i,j]&lt;- qbeta(.05,a+y,b+n-y) 
+ PUQ[i,j]&lt;- qbeta(.95,a+y,b+n-y) 
+                         }}
+
+contour(n0,th0,PM,xlab=expression(italic(n0)), ylab=expression(theta[0]),vfont = c(&quot;sans serif&quot;, &quot;plain&quot;))
+title(&quot;E[θ|sum of Y = 57]&quot;, font = 4)
+contour(n0,th0,PP10,xlab=expression(italic(n0)),levels=c(0.1,0.3,.5,.70,.90,.975) )
+title(&quot;Pr(θ &gt; 0.50|sum of Y = 57)&quot;, font = 4)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r"><code>a&lt;-1 ; b&lt;-1
+(a+y)/(b+n-y)</code></pre>
+<pre><code>## [1] 1.318182</code></pre>
+<pre class="r"><code>(a+y-1)/(a+y-1+b+n-y-1)</code></pre>
+<pre><code>## [1] 0.57</code></pre>
+<pre class="r"><code>print(round(1-pbeta(.50,a+y,b+n-y),3))</code></pre>
+<pre><code>## [1] 0.918</code></pre>
+<p>The left-panel figure gives the posterior probabilities Pr(<span class="math inline">\(\theta\)</span> &gt; 0.5|<span class="math inline">\(\sum Y\)</span> = 57). The plot indicates that people with weak prior beliefs (low values of <span class="math inline">\(n_0\)</span>) or low prior expectations(<span class="math inline">\(\theta _0\)</span>) are generally 91% or more believe that the <span class="math inline">\(\theta\)</span> is greater 0.50.</p>
+<pre class="r"><code>#Corresponding a and b values
+a&lt;-n0*th0 ; b&lt;-n0*(1-th0)
+# Posterior Expectation
+exp&lt;- outer(a, b, FUN=function(a,b) (a+y)/(b+n-y) )
+rownames(exp) = a
+colnames(exp) = b
+head(exp)</code></pre>
+<pre><code>##            1      1.8      3.2      4.2      4.8        6      6.4        6
+## 0   1.295455 1.272321 1.233766 1.207627 1.192469 1.163265 1.153846 1.163265
+## 0.2 1.300000 1.276786 1.238095 1.211864 1.196653 1.167347 1.157895 1.167347
+## 0.8 1.313636 1.290179 1.251082 1.224576 1.209205 1.179592 1.170040 1.179592
+## 1.8 1.336364 1.312500 1.272727 1.245763 1.230126 1.200000 1.190283 1.200000
+## 3.2 1.368182 1.343750 1.303030 1.275424 1.259414 1.228571 1.218623 1.228571
+## 6   1.431818 1.406250 1.363636 1.334746 1.317992 1.285714 1.275304 1.285714
+##          4.8      2.8        0
+## 0   1.192469 1.244541 1.325581
+## 0.2 1.196653 1.248908 1.330233
+## 0.8 1.209205 1.262009 1.344186
+## 1.8 1.230126 1.283843 1.367442
+## 3.2 1.259414 1.314410 1.400000
+## 6   1.317992 1.375546 1.465116</code></pre>
+<pre class="r"><code>mode&lt;- outer(a, b, FUN=function(a,b) (a+y-1)/(a+y-1+b+n-y-1))
+rownames(exp) = a
+colnames(exp) = b
+head(mode)</code></pre>
+<pre><code>##           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
+## [1,] 0.5656566 0.5611222 0.5533597 0.5479452 0.5447471 0.5384615 0.5363985
+## [2,] 0.5665323 0.5620000 0.5542406 0.5488281 0.5456311 0.5393474 0.5372849
+## [3,] 0.5691383 0.5646123 0.5568627 0.5514563 0.5482625 0.5419847 0.5399240
+## [4,] 0.5734127 0.5688976 0.5611650 0.5557692 0.5525813 0.5463138 0.5442561
+## [5,] 0.5792564 0.5747573 0.5670498 0.5616698 0.5584906 0.5522388 0.5501859
+## [6,] 0.5904762 0.5860113 0.5783582 0.5730129 0.5698529 0.5636364 0.5615942
+##           [,8]      [,9]     [,10]     [,11]
+## [1,] 0.5384615 0.5447471 0.5555556 0.5714286
+## [2,] 0.5393474 0.5456311 0.5564356 0.5723014
+## [3,] 0.5419847 0.5482625 0.5590551 0.5748988
+## [4,] 0.5463138 0.5525813 0.5633528 0.5791583
+## [5,] 0.5522388 0.5584906 0.5692308 0.5849802
+## [6,] 0.5636364 0.5698529 0.5805243 0.5961538</code></pre>
+<hr />
+</div>
+<div id="tumor-counts" class="section level3">
+<h3>3.3 Tumor counts</h3>
+A cancer laboratory is estimating the rate of tumorigenesis in two strains of mice, A and B. They have tumor count data for 10 mice in strain A and 13 mice in strain B. Type A mice have been well studied, and information from other laboratories suggests that type A mice have tumor counts that are approximately Poisson-distributed with a mean of 12. Tumor count rates for type B mice are unknown, but type B mice are related to type A mice. The observed tumor counts for the two populations are:
+<center>
+<p>yA = (12, 9, 12, 14, 13, 13, 15, 8, 15, 6);</p>
+yB = (11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7).
+</center>
+<div id="a.-1" class="section level4">
+<h4>(a).</h4>
+<p>Find the posterior distributions, means, variances and 95% quantile-based confidence intervals for <span class="math inline">\(\theta_A\)</span> and <span class="math inline">\(theta_B\)</span> , assuming a Poisson sampling distribution for each group and the following prior distribution: <span class="math display">\[\begin{gather}
+\theta_A  ∼ gamma(120,10), \theta_B ∼ gamma(12,1), p(\theta_A , \theta_B ) = p(\theta_A )×p(\theta_B ).
+\end{gather}\]</span></p>
+<pre class="r"><code>y_a &lt;- c(12, 9, 12, 14, 13, 13, 15, 8, 15, 6)
+y_b &lt;- c(11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7)
+Y_a &lt;- sum(y_a)
+n_a &lt;- length(y_a)
+Y_b &lt;- sum(y_b)
+n_b &lt;- length(y_b)</code></pre>
+<p>After obtain the data, posterior distribution: <span class="math display">\[\begin{gather}
+\theta_A  ∼ gamma(120+117,10+10), \theta_B ∼ gamma(12+113,1+13)
+\end{gather}\]</span></p>
+<p>Means</p>
+<pre class="r"><code>exp_a &lt;-(120+117)/(10+10)
+print(exp_a)</code></pre>
+<pre><code>## [1] 11.85</code></pre>
+<pre class="r"><code>exp_b &lt;-(12+113)/(1+13)
+print(exp_b)</code></pre>
+<pre><code>## [1] 8.928571</code></pre>
+<p>Variances</p>
+<pre class="r"><code>var_a &lt;- (120+117)/(10+10)^2
+print(var_a)</code></pre>
+<pre><code>## [1] 0.5925</code></pre>
+<pre class="r"><code>var_b &lt;- (12+113)/(1+13)^2
+print(var_b)</code></pre>
+<pre><code>## [1] 0.6377551</code></pre>
+<p>95% quantile-based confidence intervals</p>
+<pre class="r"><code>qgamma(c(0.025, 0.975), 120+117, 10+10)</code></pre>
+<pre><code>## [1] 10.38924 13.40545</code></pre>
+<pre class="r"><code>qgamma(c(0.025, 0.975), 12+113, 1+13)</code></pre>
+<pre><code>## [1]  7.432064 10.560308</code></pre>
+</div>
+<div id="b.-1" class="section level4">
+<h4>(b).</h4>
+<p>Compute and plot the posterior expectation of <span class="math inline">\(\theta_B\)</span> under the prior distribution <span class="math inline">\(\theta_B\)</span> ∼ gamma(<span class="math inline">\(12×n_0\)</span>, <span class="math inline">\(n_0\)</span>) for each value of <span class="math inline">\(n_0\)</span> ∈ {1, 2, . . . , 50}. Describe what sort of prior beliefs about <span class="math inline">\(\theta_B\)</span> would be necessary in order for the posterior expectation of <span class="math inline">\(\theta_B\)</span> to be close to that of <span class="math inline">\(\theta_A\)</span> .</p>
+<pre class="r"><code>n_0 = 1:50
+exp.pos = (12 * n_0 + sum(y_b)) / (n_0 + length(y_b))
+qplot(n_0, exp.pos)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-13-1.png" width="672" /> We can see from the graph that, in order for the posterior expectation of <span class="math inline">\(\theta_B\)</span> to be close to that of <span class="math inline">\(\theta_A\)</span>, prior beliefs shoud be around 50</p>
+</div>
+<div id="c.-1" class="section level4">
+<h4>(c).</h4>
+<p>Should knowledge about population A tell us anything about population B? Discuss whether or not it makes sense to have p(<span class="math inline">\(\theta_B\)</span>, <span class="math inline">\(\theta_B\)</span> ) = p(<span class="math inline">\(\theta_A\)</span>) × p(<span class="math inline">\(\theta_B\)</span>).</p>
+<p>We have included “type B mice are related to type A mice.” into our prior beliefs about <span class="math inline">\(\theta_B\)</span>. Strong prior beliefs are needed for <span class="math inline">\(\theta_A\)</span> to be close to that of <span class="math inline">\(\theta_A\)</span>, hence we should assume them independent.</p>
+<hr />
+</div>
+</div>
+<div id="mixtures-of-conjugate-priors" class="section level3">
+<h3>3.5 Mixtures of conjugate priors</h3>
+<p>Let p(y|φ) = c(φ)h(y) exp{φt(y)} be an exponential family model and let p1(φ), . . . pK (φ) be K different members of the conjugate class of prior densities given in Section 3.3. A mixture of conjugate priors is given by <span class="math inline">\(\tilde{p}(θ) = \sum^K_{k=1} w_k p_k(θ)\)</span>, where the <span class="math inline">\(w_k\)</span> ’s are all greater than zero and <span class="math inline">\(\sum w_k\)</span> = 1 (see also Diaconis and Ylvisaker (1985)).</p>
+<div id="a.-2" class="section level4">
+<h4>(a).</h4>
+<p>Identify the general form of the posterior distribution of θ, based on n i.i.d. samples from p(y|θ) and the prior distribution given by <span class="math inline">\(\tilde{y}\)</span>.</p>
+<p><span class="math display">\[\begin{align}
+p(\phi | y_1, \dots, y_n) &amp;= \frac {p(\phi)p(\phi) p(y_1, \dots, y_n | \phi)}{p(y_1, \dots, y_n)}\\
+&amp;\propto p(\phi) p(y_1, \dots, y_n | \phi) \\
+\end{align}\]</span> From sec3.3: <span class="math display">\[\begin{align}
+\tilde{p}(\theta) &amp;= \sum^K_{k=1} w_k p_k(\theta)\\
+&amp;= \sum_{k = 1}^K ( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \exp((n_{0k} t_{0k} \phi)) ) 
+\end{align}\]</span> and <span class="math display">\[\begin{align}
+p(y_1, \dots, y_n | \phi) &amp;= \prod_{i = 1}^n h(y_i) c(\phi) \text{exp}(\phi t(y_i))  
+\end{align}\]</span> Then: <span class="math display">\[\begin{align}
+p(\phi | y_1, \dots, y_n)
+&amp;\propto p(\phi) p(y_1, \dots, y_n | \phi) \\
+&amp;\propto \left[ \sum_{k = 1}^K \left( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \text{exp}(n_{0k} t_{0k} \phi) \right)  \right] \times \left[ \prod_{i = 1}^n h(y_i) c(\phi) \text{exp}(\phi t(y_i)) \right] \\
+&amp;\propto \left[ \sum_{k = 1}^K \left( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \text{exp}(n_{0k} t_{0k} \phi) \right)  \right] \times \left[   c(\phi)^n \text{exp}\left(\phi \sum_{i = 1}^n t(y_i)\right) \prod_{i = 1}^n h(y_i)\right] \\
+&amp;\propto \left[ \sum_{k = 1}^K \left( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \text{exp}(n_{0k} t_{0k} \phi) \right)  \right] \times \left[   c(\phi)^n \text{exp}\left(\phi \sum_{i = 1}^n t(y_i)\right) \right] \times \prod_{i = 1}^n h(y_i) \\
+&amp;\propto \sum_{k = 1}^K \left[ w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0, k} + n} \text{exp}\left[\phi \times \left(n_{0, k} t_{0, k}+ \sum_{i = 1}^n t(y_i) \right) \right] \right] \times \prod_{i = 1}^n h(y_i)\\
+&amp;\propto \sum_{k = 1}^K w_k p\left(\theta \; \middle| \; n_0 + n, \; n_0 t_0 + \sum_{i = 1}^{n} t(y_i)\right) \\
+\end{align}\]</span></p>
+<p>We can see the similarity between the posterior and prior distributions</p>
+</div>
+<div id="b.-2" class="section level4">
+<h4>(b).</h4>
+<p>Repeat a) but in the special case that p(y|θ) = dpois(y, θ) and <span class="math inline">\(p_1\)</span>, . . . , <span class="math inline">\(p_K\)</span> are gamma densities.</p>
+<p>Since prior is mixture of gamma densities and sampling model is Poisson distribution:</p>
+<p><span class="math display">\[\begin{gather*}
+p(\theta) = \sum_{k = 1}^K w_k p_k (\theta | a_k, b_k) = \sum_{k = 1}^K {w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k - 1} e^{-b_k \theta}}\\
+p(y_1, \dots, y_n | \theta) =  \prod_{i = 1}^n \frac{1}{y_i !} \theta^{y_i} e^{-\theta} 
+\end{gather*}\]</span></p>
+<p>Similar to (a): <span class="math display">\[\begin{align}
+p(\theta \mid y_1, \dots, y_n) 
+&amp;\propto p(\theta) p(y_1, \dots, y_n | \theta) \\
+&amp;\propto  \sum_{k = 1}^K \left( w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k - 1} e^{-b_k \theta} \right)  \times  \prod_{i = 1}^n \frac{1}{y_i !} \theta^{y_i} e^{-\theta}  \\
+&amp;\propto  \sum_{k = 1}^K \left( w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k - 1} e^{-b_k \theta} \right)  \times \theta^{\sum y_i} e^{-n\theta} \times \prod_{i = 1}^n \frac{1}{y_i !}\\
+&amp;\propto \sum_{k = 1}^K \left( w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k + \sum y_i - 1} e^{-(b_k + n)\theta} \right) \times \prod_{i = 1}^n \frac{1}{y_i !} \\
+&amp;\propto \sum_{k = 1}^K w_k p\left(\theta \; \mid \; a_k + \sum y_i, \; b_k + n \right) \\
+\end{align}\]</span></p>
+<hr />
+</div>
+</div>
+<div id="jeffreys-prior" class="section level3">
+<h3>3.12 Jeffreys’ prior</h3>
+<p>Jeffreys (1961) suggested a default rule for generating a prior distribution of a parameter <span class="math inline">\(\theta\)</span> in a sampling model p(y|<span class="math inline">\(\theta\)</span>). Jeffreys’prior is given by <span class="math inline">\(p_J(\theta)\)</span> <span class="math inline">\(\propto\)</span> <span class="math inline">\(\sqrt{I(\theta)}\)</span> , where <span class="math inline">\(I(\theta)\)</span> = <span class="math inline">\(-\mathrm{E}(\frac{\partial^2 \log p(y \mid \theta)}{\partial \theta^2} )\)</span> is the Fisher information</p>
+<div id="a.-3" class="section level4">
+<h4>(a).</h4>
+<ol style="list-style-type: lower-alpha">
+<li>Let Y ∼ binomial(n, <span class="math inline">\(\theta\)</span>). Obtain effreys’ prior distribution <span class="math inline">\(p_J (\theta)\)</span> for this model. Since<br />
+<span class="math display">\[\begin{equation}
+p_J(\theta) \propto \sqrt{I(\theta)}
+\end{equation}\]</span> and <span class="math display">\[\begin{equation}
+Y \backsim Binomial(n,\theta ), \theta \in [0,1]
+\end{equation}\]</span></li>
+</ol>
+<p>Likelihood: <span class="math display">\[\begin{equation}
+p(y | \theta) = {n \choose y} \theta^y (1 - \theta)^{n - y}
+\end{equation}\]</span> LogLikelihood: <span class="math display">\[\begin{align}
+\log p(y \mid \theta) 
+&amp;= \log \left( {n \choose y}  + y \log(\theta) + (n - y) \log(1 - \theta)\right) \\
+\end{align}\]</span></p>
+<p>Next is to differentiate with <span class="math inline">\(\theta\)</span> twice: <span class="math display">\[\begin{align}
+\frac{\partial}{\partial \theta} \log p(y | \theta) &amp;= \frac{y}{\theta}- \frac{n - y}{1 - \theta} \\
+\frac{\partial^2}{\partial \theta^2 } \log p(y | \theta) &amp;= - \frac{y}{\theta^2} - \frac{n - y}{(1 - \theta)^2} \\
+\end{align}\]</span></p>
+<p>Take the expextation: <span class="math inline">\(\mathrm{E}(y) = n\theta\)</span> <span class="math display">\[\begin{align}
+-\mathrm{E}\left( -\frac{y}{\theta^2} - \frac{n - y}{(1 - \theta)^2} \right) 
+&amp;= \frac{n\theta}{\theta^2} + \frac{n - n\theta}{(1 - \theta)^2} \\
+&amp;= n \frac{1-\theta+\theta}{\theta(1-\theta)} \\
+&amp;= \frac{n}{\theta (1 - \theta)}
+\end{align}\]</span></p>
+<p>So Jeffreys’ prior distribution is</p>
+<p><span class="math display">\[\begin{align}
+p_J(\theta) &amp;=  \sqrt{n}\theta^{-1/2} (1 - \theta)^{-1/2} \\
+\end{align}\]</span></p>
+<p>Recall that: <span class="math display">\[\begin{align}
+beta(a,b) =\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta^{a-1}(1-\theta)^{b-1}
+\end{align}\]</span></p>
+<p><span class="math display">\[\begin{align*}
+-\frac{1}{2} &amp;= a-1           &amp;  -\frac{1}{2} &amp;=b-1           \\
+\end{align*}\]</span></p>
+<p>We have: <span class="math display">\[\begin{equation}
+p_J(\theta) = \frac{\Gamma(1)}{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})}\theta^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}
+\end{equation}\]</span></p>
+</div>
+<div id="b.-3" class="section level4">
+<h4>(b).</h4>
+<p>Reparameterize the binomial sampling model with <span class="math inline">\(\psi\)</span> = <span class="math inline">\(\log (\theta/(1 − \theta))\)</span>, so that p(y|<span class="math inline">\(\psi\)</span>) = {n y} <span class="math inline">\(e^{\psi y}(1+e^{\psi y})^{-n}\)</span>.Obtain Jeffreys’ prior distribution <span class="math inline">\(p_J (\psi)\)</span> for this model.</p>
+<p>Similar to (a): <span class="math display">\[\begin{align}
+\log p(y \mid \psi) 
+&amp;= \log \left( {n \choose y} e^{\psi y} (1 + e^\psi)^{-n} \right) \\
+&amp;= \log {n \choose y} + \psi y - n \log \left(1 + e^\psi \right) \\
+\end{align}\]</span></p>
+<p>Differentiate: <span class="math display">\[\begin{align}
+\frac{\partial}{\partial \psi} \log p(y | \psi) &amp;= y - \frac{n e^\psi}{e^\psi + 1} \\
+\frac{\partial^2}{\partial \psi^2 } \log (y | \psi) &amp;= - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}
+\end{align}\]</span> Take Expectation: <span class="math display">\[\begin{align}
+-\mathrm{E}\left( - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}\right) 
+&amp;= \frac{n e^\psi}{\left( e^\psi + 1 \right)^2} \\
+\end{align}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+p_J(\psi) \propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}} 
+\end{equation}\]</span></p>
+</div>
+<div id="c.-2" class="section level4">
+<h4>(c).</h4>
+<p>Take the prior distribution from a) and apply the change of variables formula from Exercise 3.10 to obtain the induced prior density on <span class="math inline">\(\psi\)</span>. This density should be the same as the one derived in part b) of this exercise. This consistency under reparameterization is the defining characteristic of Jeffrey’s’ prior.</p>
+<p>Note that Jeffreys’ prior is invariant under reparameterization:</p>
+<p>From <span class="math inline">\(\psi = \log \frac{\theta}{1 - \theta}\)</span> we get <span class="math inline">\(\theta = \frac{e^\psi}{1 + e^\psi}\)</span> as a fucntion of <span class="math inline">\(\psi\)</span>: <span class="math inline">\(h(\psi)\)</span>.</p>
+<p>Plug into the distribution in (a):</p>
+<p><span class="math display">\[\begin{align}
+p(h(\psi)) &amp;= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}}\\
+&amp;= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^{\psi}}\right)}}\\
+\end{align}\]</span></p>
+<p><span class="math display">\[\begin{align}
+\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}{(e^{\psi} + 1)^2}}
+\end{align}\]</span></p>
+<p>Apply the change of variables formula: <span class="math display">\[\begin{align}
+p_{\psi}(\psi) &amp;\propto p(h(\psi)) \times \left| \frac{dh}{d\psi} \right| \\
+&amp;\propto \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \times \frac{e^\psi}{(e^\psi + 1)^2} \\
+&amp;\propto \sqrt{\frac{n(e^\psi + 1)^2}{e^\psi} } \times \frac{e^\psi}{(e^\psi + 1)^2} \\
+&amp;\propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}}\\
+\end{align}\]</span></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -3,10 +3,10 @@ output_dir: "."
 navbar:
   title: "About me"
   left:
-    - text: "Projects"
-      href: projects.html
     - text: "Courses"
       href: courses.html
+    - text: "Projects"
+      href: projects.html
   right:
     - icon: fa-envelope fa-lg
       href: contact.html

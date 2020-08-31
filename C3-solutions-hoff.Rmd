@@ -1,0 +1,425 @@
+---
+title: "C3-One-parameter-models"
+output:
+  html_document: default
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### 3.1 Sample survey
+*Question*
+Suppose we are going to sample 100 individuals from
+a county (of size much larger than 100) and ask each sampled person
+whether they support policy Z or not. Let $Y_i$ = 1 if person $i$ in the sample
+supports the policy, and $Y_i = 0$ otherwise.
+
+
+#### (a). 
+Assume $Y_1$, . . . , $Y_100$ are, conditional on $\theta$, i.i.d. binary random variables with expectation $\theta$. Write down the joint distribution of Pr($Y_1$ =
+$y_1$, . . . , $Y_100$ = $y_100$|$\theta$) in a compact form. Also write down the form of Pr($\sum Y_i$ = y|$\theta$).
+
+Sampling from a binomial model:
+
+<center>
+Pr( $Y_1$ =$y_1$, . . . , $Y_100$ = $y_100$ | $\theta$ ) = $\theta^{\sum y_i} (1 - \theta)^{100 - \sum y_i}$
+</center>
+
+<center>
+Pr( $\sum Y_i$ = y | $\theta$ ) = ${100 \choose y} \theta^y(1 - \theta)^{100 - y}$
+</center>
+
+
+#### (b). 
+For the moment, suppose you believed that $\theta$ $\in$ {0.0, 0.1, . . . , 0.9, 1.0}. Given that the results of the survey were $\sum^{100}_{i=1} Y_i$ = 57, compute
+Pr($\sum^{100}_{i=1} Y_i$ i = 57 | $\theta$) for each of these 11 values of $\theta$ and plot these probabilities as a function of $\theta$.
+```{r,echo =TRUE}
+sum <- 57
+count <- 100
+theta <- seq(0, 0.9, by = 0.1)
+lh <- sapply(theta,function(x)dbinom(sum,count,x))
+df <- data.frame(theta = theta, probability = lh)
+print(round(df, 3))
+library(ggplot2)
+p<-ggplot(data=df, aes(x=theta, y=lh)) +
+  geom_bar(stat="identity", fill="steelblue") +
+  scale_x_continuous(breaks = theta) +
+  theme_minimal() 
+p
+```
+
+#### (c). 
+Now suppose you originally had no prior information to believe one of
+these θ-values over another, and so Pr($\theta$ = 0.0) = Pr($\theta$ = 0.1) = · · · =
+Pr($\theta$ = 0.9) = Pr($\theta$ = 1.0). Use Bayes’ rule to compute p($\theta$| $\sum_n^{i=1} Y_i$ =57) for each $\theta$-value. Make a plot of this posterior distribution as a function of $\theta$. 
+We have a prior p($\theta_i$) = $\frac{1}{11}$ for every $\theta_i$, hence it got cancelled out.
+Bayes' rule gives us:
+
+<center>
+p($\theta$| $\sum_n^{i=1} Y_i$ = 57) = $\frac{p(\sum Y_i = 57 |\theta)}{\sum_{\theta_i} p(\sum Y_i = 57 |\theta_i)}$
+</center>
+
+
+```{r,echo =TRUE}
+#A uniform prior = 1/11
+denom <- sum(lh)
+pos <- sapply(theta, function(theta) dbinom(sum, count , theta)  / denom)
+df <- data.frame(theta = theta, posterior = pos)
+print(round(df, 3))
+ggplot(df,aes(x = theta, y = posterior)) +
+  geom_bar(stat = 'identity', fill="steelblue") +
+  scale_x_continuous(breaks = theta) +
+  theme_minimal()
+```
+
+#### (d).
+Now suppose you allow $\theta$ to be any value in the interval [0, 1]. Using
+the uniform prior density for θ, so that p($\theta$) = 1, plot the posterior
+density p($\theta$) × Pr($\sum_{i=1}^n Y_i = 57$ | $\theta$) as a function of $\theta$.
+
+We have a prior distribution $p(\theta)$ of beta(1,1) 
+
+and a sampling model:
+\begin{equation}
+p(y_1, . . . , y_n|\theta) = \theta^{\sum_{i=1}^n}(1 - \theta)^{n-\sum_{i=1}^n}
+\end{equation}
+```{r}
+theta2 <- seq(from=0, to=1, by = 0.001)
+lh2 <- sapply(theta2, function(theta2) dbinom(sum, count,theta2))
+qplot(theta2, lh2, geom='line')
+```
+
+#### (e).
+As discussed in this chapter, the posterior distribution of $\theta$ is beta(1 +
+57, 1 + 100 − 57). Plot the posterior density as a function of $\theta$. Discuss
+the relationships among all of the plots you have made for this exercise.
+
+```{r}
+qplot(theta2, dbeta(theta2, 1+57, 1+100-57), geom = 'line')
+```
+
+***
+
+### 3.2 Sensitivity analysis
+
+It is sometimes useful to express the parameters a and b in a beta distribution in terms of $\theta_0$ = a/(a + b) and $n_0$ = a + b,
+so that a = $\theta_0 n_0$ and b = (1 − $\theta_0$)$n_0$. Reconsidering the sample survey data in Exercise 3.1, for each combination of $\theta_0$ ∈ {0.1, 0.2, . . . , 0.9} and $n_0$ ∈ {1, 2, 8, 16, 32} find the corresponding a, b values and compute Pr($\theta > 0.5| \sum Y_i = 57$) using a beta(a, b) prior distribution for $\theta$. Display the results with a contour plot, and discuss how the plot could be used to explain to someone whether or not they should believe that $\theta$ > 0.5,
+based on the data that $\sum_{i=1}^{100} Y_i = 57$)
+
+```{r}
+# par(mar=c(3,3,1,1),mgp=c(1.75,.75,0))
+par(mfrow=c(1,2))
+g<-11
+th0<-seq(0,1,,by =0.1)
+n0<-c(1,2,4,6,8,12,16,20,24,28,32)
+
+y<-57 ; n<-100
+
+PP10<-PM<-PLQ<-PUQ<-matrix(0,g,g)
+for(i in 1:g) {for(j in 1:g) {
+# Corresponding a and b values:
+ a<-n0[i]*th0[j]
+ b<-n0[i]*(1-th0[j]) 
+   
+ PM[i,j]<- (a+y)/(a+y+b+n-y) 
+ pbeta
+ PP10[i,j]<- 1-pbeta(.5,a+y,b+n-y)
+ PLQ[i,j]<- qbeta(.05,a+y,b+n-y) 
+ PUQ[i,j]<- qbeta(.95,a+y,b+n-y) 
+                         }}
+
+contour(n0,th0,PM,xlab=expression(italic(n0)), ylab=expression(theta[0]),vfont = c("sans serif", "plain"))
+title("E[θ|sum of Y = 57]", font = 4)
+contour(n0,th0,PP10,xlab=expression(italic(n0)),levels=c(0.1,0.3,.5,.70,.90,.975) )
+title("Pr(θ > 0.50|sum of Y = 57)", font = 4)
+
+a<-1 ; b<-1
+(a+y)/(b+n-y)
+(a+y-1)/(a+y-1+b+n-y-1)
+print(round(1-pbeta(.50,a+y,b+n-y),3))
+
+
+```
+
+The left-panel figure gives the posterior probabilities Pr($\theta$ > 0.5|$\sum Y$ = 57).  The plot indicates that people with weak prior beliefs (low values of $n_0$) or low prior expectations($\theta _0$) are generally 91% or more believe that the $\theta$ is greater 0.50. 
+
+```{r }
+#Corresponding a and b values
+a<-n0*th0 ; b<-n0*(1-th0)
+# Posterior Expectation
+exp<- outer(a, b, FUN=function(a,b) (a+y)/(b+n-y) )
+rownames(exp) = a
+colnames(exp) = b
+head(exp)
+
+```
+```{r}
+mode<- outer(a, b, FUN=function(a,b) (a+y-1)/(a+y-1+b+n-y-1))
+rownames(exp) = a
+colnames(exp) = b
+head(mode)
+```
+
+***
+
+### 3.3 Tumor counts
+A cancer laboratory is estimating the rate of tumorigenesis
+in two strains of mice, A and B. They have tumor count data for 10 mice
+in strain A and 13 mice in strain B. Type A mice have been well studied,
+and information from other laboratories suggests that type A mice have
+tumor counts that are approximately Poisson-distributed with a mean of
+12. Tumor count rates for type B mice are unknown, but type B mice are
+related to type A mice. The observed tumor counts for the two populations
+are:
+<center>
+yA = (12, 9, 12, 14, 13, 13, 15, 8, 15, 6);
+
+yB = (11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7).
+</center>
+
+#### (a). 
+Find the posterior distributions, means, variances and 95% quantile-based
+confidence intervals for $\theta_A$ and $theta_B$ , assuming a Poisson sampling
+distribution for each group and the following prior distribution:
+\begin{gather}
+\theta_A  ∼ gamma(120,10), \theta_B ∼ gamma(12,1), p(\theta_A , \theta_B ) = p(\theta_A )×p(\theta_B ).
+\end{gather}
+```{r}
+y_a <- c(12, 9, 12, 14, 13, 13, 15, 8, 15, 6)
+y_b <- c(11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7)
+Y_a <- sum(y_a)
+n_a <- length(y_a)
+Y_b <- sum(y_b)
+n_b <- length(y_b)
+```
+After obtain the data, posterior distribution:
+\begin{gather}
+\theta_A  ∼ gamma(120+117,10+10), \theta_B ∼ gamma(12+113,1+13)
+\end{gather}
+
+Means 
+```{r}
+exp_a <-(120+117)/(10+10)
+print(exp_a)
+exp_b <-(12+113)/(1+13)
+print(exp_b)
+```
+
+Variances
+```{r}
+var_a <- (120+117)/(10+10)^2
+print(var_a)
+var_b <- (12+113)/(1+13)^2
+print(var_b)
+```
+
+95% quantile-based confidence intervals
+```{r}
+qgamma(c(0.025, 0.975), 120+117, 10+10)
+```
+```{r}
+qgamma(c(0.025, 0.975), 12+113, 1+13)
+```
+
+#### (b). 
+Compute and plot the posterior expectation of $\theta_B$ under the prior distribution
+$\theta_B$  ∼ gamma($12×n_0$, $n_0$) for each value of $n_0$ ∈ {1, 2, . . . , 50}.
+Describe what sort of prior beliefs about $\theta_B$  would be necessary in order
+for the posterior expectation of $\theta_B$  to be close to that of $\theta_A$ .
+
+```{r}
+n_0 = 1:50
+exp.pos = (12 * n_0 + sum(y_b)) / (n_0 + length(y_b))
+qplot(n_0, exp.pos)
+```
+We can see from the graph that, in order for the posterior expectation of $\theta_B$  to be close to that of $\theta_A$, prior beliefs shoud be around 50
+
+
+#### (c).
+Should knowledge about population A tell us anything about population B? Discuss whether or not it makes sense to have p($\theta_B$, $\theta_B$ ) = p($\theta_A$) × p($\theta_B$).
+
+
+We have included "type B mice are related to type A mice." into our prior beliefs about $\theta_B$. Strong prior beliefs  are needed for $\theta_A$ to be close to that of $\theta_A$, hence we should  assume them independent.
+
+***
+
+### 3.5 Mixtures of conjugate priors 
+Let p(y|φ) = c(φ)h(y) exp{φt(y)} be an exponential family model and let p1(φ), . . . pK (φ) be K different members of the conjugate class of prior densities given in Section 3.3. A mixture of
+conjugate priors is given by $\tilde{p}(θ) = \sum^K_{k=1} w_k p_k(θ)$, where the $w_k$ ’s are all greater than zero and $\sum w_k$ = 1 (see also Diaconis and Ylvisaker (1985)).
+
+#### (a).
+Identify the general form of the posterior distribution of θ, based on n i.i.d. samples from p(y|θ) and the prior distribution given by $\tilde{y}$.
+
+
+\begin{align}
+p(\phi | y_1, \dots, y_n) &= \frac {p(\phi)p(\phi) p(y_1, \dots, y_n | \phi)}{p(y_1, \dots, y_n)}\\
+&\propto p(\phi) p(y_1, \dots, y_n | \phi) \\
+\end{align}
+From sec3.3:
+\begin{align}
+\tilde{p}(\theta) &= \sum^K_{k=1} w_k p_k(\theta)\\
+&= \sum_{k = 1}^K ( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \exp((n_{0k} t_{0k} \phi)) ) 
+\end{align}
+and
+\begin{align}
+p(y_1, \dots, y_n | \phi) &= \prod_{i = 1}^n h(y_i) c(\phi) \text{exp}(\phi t(y_i))  
+\end{align}
+Then:
+\begin{align}
+p(\phi | y_1, \dots, y_n)
+&\propto p(\phi) p(y_1, \dots, y_n | \phi) \\
+&\propto \left[ \sum_{k = 1}^K \left( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \text{exp}(n_{0k} t_{0k} \phi) \right)  \right] \times \left[ \prod_{i = 1}^n h(y_i) c(\phi) \text{exp}(\phi t(y_i)) \right] \\
+&\propto \left[ \sum_{k = 1}^K \left( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \text{exp}(n_{0k} t_{0k} \phi) \right)  \right] \times \left[   c(\phi)^n \text{exp}\left(\phi \sum_{i = 1}^n t(y_i)\right) \prod_{i = 1}^n h(y_i)\right] \\
+&\propto \left[ \sum_{k = 1}^K \left( w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0k}} \text{exp}(n_{0k} t_{0k} \phi) \right)  \right] \times \left[   c(\phi)^n \text{exp}\left(\phi \sum_{i = 1}^n t(y_i)\right) \right] \times \prod_{i = 1}^n h(y_i) \\
+&\propto \sum_{k = 1}^K \left[ w_k \kappa (n_{0k}, t_{0k}) c(\phi)^{n_{0, k} + n} \text{exp}\left[\phi \times \left(n_{0, k} t_{0, k}+ \sum_{i = 1}^n t(y_i) \right) \right] \right] \times \prod_{i = 1}^n h(y_i)\\
+&\propto \sum_{k = 1}^K w_k p\left(\theta \; \middle| \; n_0 + n, \; n_0 t_0 + \sum_{i = 1}^{n} t(y_i)\right) \\
+\end{align}
+
+We can see the similarity between the posterior and prior distributions
+
+#### (b). 
+Repeat a) but in the special case that p(y|θ) = dpois(y, θ) and $p_1$, . . . , $p_K$ are gamma densities.
+
+Since prior is mixture of gamma densities and sampling model is Poisson distribution:
+
+\begin{gather*}
+p(\theta) = \sum_{k = 1}^K w_k p_k (\theta | a_k, b_k) = \sum_{k = 1}^K {w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k - 1} e^{-b_k \theta}}\\
+p(y_1, \dots, y_n | \theta) =  \prod_{i = 1}^n \frac{1}{y_i !} \theta^{y_i} e^{-\theta} 
+\end{gather*}
+
+Similar to (a):
+\begin{align}
+p(\theta \mid y_1, \dots, y_n) 
+&\propto p(\theta) p(y_1, \dots, y_n | \theta) \\
+&\propto  \sum_{k = 1}^K \left( w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k - 1} e^{-b_k \theta} \right)  \times  \prod_{i = 1}^n \frac{1}{y_i !} \theta^{y_i} e^{-\theta}  \\
+&\propto  \sum_{k = 1}^K \left( w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k - 1} e^{-b_k \theta} \right)  \times \theta^{\sum y_i} e^{-n\theta} \times \prod_{i = 1}^n \frac{1}{y_i !}\\
+&\propto \sum_{k = 1}^K \left( w_k \frac{b_k^{a_k}}{\Gamma(a_k)} \theta^{a_k + \sum y_i - 1} e^{-(b_k + n)\theta} \right) \times \prod_{i = 1}^n \frac{1}{y_i !} \\
+&\propto \sum_{k = 1}^K w_k p\left(\theta \; \mid \; a_k + \sum y_i, \; b_k + n \right) \\
+\end{align}
+
+*** 
+
+### 3.12 Jeffreys’ prior
+Jeffreys (1961) suggested a default rule for generating a prior distribution of a parameter $\theta$ in a sampling model p(y|$\theta$). Jeffreys’prior is given by $p_J(\theta)$ $\propto$ $\sqrt{I(\theta)}$ , where $I(\theta)$ = $-\mathrm{E}(\frac{\partial^2 \log p(y \mid \theta)}{\partial \theta^2} )$
+is the Fisher information
+
+#### (a).
+a) Let Y ∼ binomial(n, $\theta$). Obtain  effreys’ prior distribution $p_J (\theta)$ for
+this model.
+Since  
+\begin{equation}
+p_J(\theta) \propto \sqrt{I(\theta)}
+\end{equation}
+and
+\begin{equation}
+Y \backsim Binomial(n,\theta ), \theta \in [0,1]
+\end{equation}
+
+Likelihood:
+\begin{equation}
+p(y | \theta) = {n \choose y} \theta^y (1 - \theta)^{n - y}
+\end{equation}
+LogLikelihood:
+\begin{align}
+\log p(y \mid \theta) 
+&= \log \left( {n \choose y}  + y \log(\theta) + (n - y) \log(1 - \theta)\right) \\
+\end{align}
+
+Next is to differentiate with $\theta$ twice:
+\begin{align}
+\frac{\partial}{\partial \theta} \log p(y | \theta) &= \frac{y}{\theta}- \frac{n - y}{1 - \theta} \\
+\frac{\partial^2}{\partial \theta^2 } \log p(y | \theta) &= - \frac{y}{\theta^2} - \frac{n - y}{(1 - \theta)^2} \\
+\end{align}
+
+Take the expextation: $\mathrm{E}(y) = n\theta$
+\begin{align}
+-\mathrm{E}\left( -\frac{y}{\theta^2} - \frac{n - y}{(1 - \theta)^2} \right) 
+&= \frac{n\theta}{\theta^2} + \frac{n - n\theta}{(1 - \theta)^2} \\
+&= n \frac{1-\theta+\theta}{\theta(1-\theta)} \\
+&= \frac{n}{\theta (1 - \theta)}
+\end{align}
+
+So Jeffreys' prior distribution is
+
+\begin{align}
+p_J(\theta) &=  \sqrt{n}\theta^{-1/2} (1 - \theta)^{-1/2} \\
+\end{align}
+
+Recall that:
+\begin{align}
+beta(a,b) =\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta^{a-1}(1-\theta)^{b-1}
+\end{align}
+
+\begin{align*}
+-\frac{1}{2} &= a-1           &  -\frac{1}{2} &=b-1           \\
+\end{align*}
+
+We have:
+\begin{equation}
+p_J(\theta) = \frac{\Gamma(1)}{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})}\theta^{-\frac{1}{2}}(1-\theta)^{-\frac{1}{2}}
+\end{equation}
+
+
+#### (b).
+Reparameterize the binomial sampling model with $\psi$ = $\log (\theta/(1 − \theta))$,
+so that p(y|$\psi$) = {n \choose y} $e^{\psi y}(1+e^{\psi y})^{-n}$.Obtain Jeffreys’ prior distribution $p_J (\psi)$ for this model.
+
+Similar to (a):
+\begin{align}
+\log p(y \mid \psi) 
+&= \log \left( {n \choose y} e^{\psi y} (1 + e^\psi)^{-n} \right) \\
+&= \log {n \choose y} + \psi y - n \log \left(1 + e^\psi \right) \\
+\end{align}
+
+Differentiate:
+\begin{align}
+\frac{\partial}{\partial \psi} \log p(y | \psi) &= y - \frac{n e^\psi}{e^\psi + 1} \\
+\frac{\partial^2}{\partial \psi^2 } \log (y | \psi) &= - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}
+\end{align}
+Take Expectation:
+\begin{align}
+-\mathrm{E}\left( - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}\right) 
+&= \frac{n e^\psi}{\left( e^\psi + 1 \right)^2} \\
+\end{align}
+
+
+\begin{equation}
+p_J(\psi) \propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}} 
+\end{equation}
+
+#### (c).
+Take the prior distribution from a) and apply the change of variables
+formula from Exercise 3.10 to obtain the induced prior density on $\psi$.
+This density should be the same as the one derived in part b) of this
+exercise. This consistency under reparameterization is the defining characteristic of Jeffrey’s’ prior.
+
+Note that Jeffreys' prior is invariant under  reparameterization:
+
+From $\psi = \log \frac{\theta}{1 - \theta}$ 
+we get $\theta  = \frac{e^\psi}{1 + e^\psi}$ as a fucntion of $\psi$:  $h(\psi)$.
+
+Plug into the distribution in (a):
+
+\begin{align}
+p(h(\psi)) &= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}}\\
+&= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^{\psi}}\right)}}\\
+\end{align}
+
+\begin{align}
+\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}{(e^{\psi} + 1)^2}}
+\end{align}
+
+Apply the change of variables
+formula:
+\begin{align}
+p_{\psi}(\psi) &\propto p(h(\psi)) \times \left| \frac{dh}{d\psi} \right| \\
+&\propto \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \times \frac{e^\psi}{(e^\psi + 1)^2} \\
+&\propto \sqrt{\frac{n(e^\psi + 1)^2}{e^\psi} } \times \frac{e^\psi}{(e^\psi + 1)^2} \\
+&\propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}}\\
+\end{align}
+
+
+
