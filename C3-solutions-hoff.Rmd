@@ -409,9 +409,9 @@ p(h(\psi)) &= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}}\\
 &= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^{\psi}}\right)}}\\
 \end{align}
 
-\begin{align}
-\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}{(e^{\psi} + 1)^2}}
-\end{align}
+\begin{equation}
+\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}}{{e^{\psi} + 1}^2}
+\end{equation}
 
 Apply the change of variables
 formula:
@@ -487,8 +487,8 @@ this statistic, assess the fit of the Poisson model for these data.
 
 Load the tutmor counts data
 ```{r}
-ya = c(12, 9, 12, 14, 13, 13, 15, 8, 15, 6)
-yb = c(11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7)
+y.a = c(12, 9, 12, 14, 13, 13, 15, 8, 15, 6)
+y.b = c(11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7)
 ```
 
 
@@ -541,14 +541,14 @@ as $1/\sigma2$ ∼ gamma(10, 2.5), and $\theta|\sigma^2$ ∼ normal(4.1, $\sigma
 a) Sample at least 5,000 y values from the posterior predictive distribution.
 ```{r}
 sigma_sq.mc <- 1 / rgamma(10000, 10, 2.5)
-theta.mc <- rnorm(10000, 4.1, sigma2.mc / 20)
+theta.mc <- rnorm(10000, 4.1, sigma_sq.mc / 20)
 ```
 
 #### (b). 
 Form a 75% quantile-based confidence interval for a new value of Y.
 ```{r}
 sigma.mc <- sqrt(sigma_sq.mc)
-y.mc <- 0.31 * rnorm(N, theta.mc, sigma.mc) + 0.46 * rnorm(N, 2 * theta.mc, 2 * sigma.mc) + 0.23 * rnorm(N, 3 * theta.mc, 3 * sigma.mc)
+y.mc <- 0.31 * rnorm(10000, theta.mc, sigma.mc) + 0.46 * rnorm(10000, 2 * theta.mc, 2 * sigma.mc) + 0.23 * rnorm(10000, 3 * theta.mc, 3 * sigma.mc)
 print(quantile(y.mc, c(.125, .875)))
 ```
 
@@ -566,7 +566,6 @@ y_norm = y.density$y / sum(y.density$y)
 (ii). Sort these discrete probabilities in decreasing order.
 ```{r}
 y_sort <- y_norm[order(y_norm,decreasing = TRUE)]
-y_sort
 ```
 (iii). Find the first probability value such that the cumulative sum of
 the sorted values exceeds 0.75. Your HPD region includes all values
@@ -577,12 +576,11 @@ region.
 index <-  min(which((cumsum(y_sort) >0.75)))
 y_sort[index]
 data<-data.frame(x =y.density$x, density = y_norm)
-data
 data$hdp[data$density > y_sort[index]]="red"
 data$hdp[data$density <= y_sort[index]]="blue"
 
 plot(x= data$x, y=data$density,col=data$hdp,ylim=c(0,0.01),type = "p",cex=0.5,pch = 19)
-legend(4, 0.006, legend=c("greater than cutoff", "less or equal than cutoff"),col=c("red", "blue"), lty=1:1, cex=0.8)
+legend(5, 0.006, legend=c("greater than cutoff", "less or equal than cutoff"),col=c("red", "blue"), lty=1:1, cex=0.8)
 ```
 
 

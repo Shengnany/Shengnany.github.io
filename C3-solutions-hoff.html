@@ -11,7 +11,7 @@
 
 
 
-<title>C3-One-parameter-models</title>
+<title>A First Course in Bayesian Statistical Methods Solutions</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -308,11 +308,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">C3-One-parameter-models</h1>
+<h1 class="title toc-ignore">A First Course in Bayesian Statistical Methods Solutions</h1>
 
 </div>
 
 
+<div id="chapter-3.-one-parameter-models" class="section level1">
+<h1>Chapter 3. One-parameter models</h1>
 <div id="sample-survey" class="section level3">
 <h3>3.1 Sample survey</h3>
 <p><em>Question</em> Suppose we are going to sample 100 individuals from a county (of size much larger than 100) and ask each sampled person whether they support policy Z or not. Let <span class="math inline">\(Y_i\)</span> = 1 if person <span class="math inline">\(i\)</span> in the sample supports the policy, and <span class="math inline">\(Y_i = 0\)</span> otherwise.</p>
@@ -347,8 +349,9 @@ print(round(df, 3))</code></pre>
 ## 8    0.7       0.002
 ## 9    0.8       0.000
 ## 10   0.9       0.000</code></pre>
-<pre class="r"><code>library(ggplot2)
-p&lt;-ggplot(data=df, aes(x=theta, y=lh)) +
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.2</code></pre>
+<pre class="r"><code>p&lt;-ggplot(data=df, aes(x=theta, y=lh)) +
   geom_bar(stat=&quot;identity&quot;, fill=&quot;steelblue&quot;) +
   scale_x_continuous(breaks = theta) +
   theme_minimal() 
@@ -444,8 +447,8 @@ title(&quot;Pr(θ &gt; 0.50|sum of Y = 57)&quot;, font = 4)</code></pre>
 a&lt;-n0*th0 ; b&lt;-n0*(1-th0)
 # Posterior Expectation
 exp&lt;- outer(a, b, FUN=function(a,b) (a+y)/(b+n-y) )
-rownames(exp) = a
-colnames(exp) = b
+rownames(exp) &lt;- a
+colnames(exp) &lt;- b
 head(exp)</code></pre>
 <pre><code>##            1      1.8      3.2      4.2      4.8        6      6.4        6
 ## 0   1.295455 1.272321 1.233766 1.207627 1.192469 1.163265 1.153846 1.163265
@@ -462,8 +465,8 @@ head(exp)</code></pre>
 ## 3.2 1.259414 1.314410 1.400000
 ## 6   1.317992 1.375546 1.465116</code></pre>
 <pre class="r"><code>mode&lt;- outer(a, b, FUN=function(a,b) (a+y-1)/(a+y-1+b+n-y-1))
-rownames(exp) = a
-colnames(exp) = b
+rownames(exp) &lt;- a
+colnames(exp) &lt;- b
 head(mode)</code></pre>
 <pre><code>##           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
 ## [1,] 0.5656566 0.5611222 0.5533597 0.5479452 0.5447471 0.5384615 0.5363985
@@ -526,8 +529,8 @@ print(var_b)</code></pre>
 <h4>(b).</h4>
 <p>Compute and plot the posterior expectation of <span class="math inline">\(\theta_B\)</span> under the prior distribution <span class="math inline">\(\theta_B\)</span> ∼ gamma(<span class="math inline">\(12×n_0\)</span>, <span class="math inline">\(n_0\)</span>) for each value of <span class="math inline">\(n_0\)</span> ∈ {1, 2, . . . , 50}. Describe what sort of prior beliefs about <span class="math inline">\(\theta_B\)</span> would be necessary in order for the posterior expectation of <span class="math inline">\(\theta_B\)</span> to be close to that of <span class="math inline">\(\theta_A\)</span> .</p>
 <pre class="r"><code>n_0 = 1:50
-exp.pos = (12 * n_0 + sum(y_b)) / (n_0 + length(y_b))
-qplot(n_0, exp.pos)</code></pre>
+mean.pos = (12 * n_0 + sum(y_b)) / (n_0 + length(y_b))
+qplot(n_0, mean.pos)</code></pre>
 <p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-13-1.png" width="672" /> We can see from the graph that, in order for the posterior expectation of <span class="math inline">\(\theta_B\)</span> to be close to that of <span class="math inline">\(\theta_A\)</span>, prior beliefs shoud be around 50</p>
 </div>
 <div id="c.-1" class="section level4">
@@ -653,15 +656,147 @@ p_J(\psi) \propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}}
 p(h(\psi)) &amp;= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}}\\
 &amp;= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^{\psi}}\right)}}\\
 \end{align}\]</span></p>
-<p><span class="math display">\[\begin{align}
-\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}{(e^{\psi} + 1)^2}}
-\end{align}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}}{{e^{\psi} + 1}^2}
+\end{equation}\]</span></p>
 <p>Apply the change of variables formula: <span class="math display">\[\begin{align}
 p_{\psi}(\psi) &amp;\propto p(h(\psi)) \times \left| \frac{dh}{d\psi} \right| \\
 &amp;\propto \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \times \frac{e^\psi}{(e^\psi + 1)^2} \\
 &amp;\propto \sqrt{\frac{n(e^\psi + 1)^2}{e^\psi} } \times \frac{e^\psi}{(e^\psi + 1)^2} \\
 &amp;\propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}}\\
 \end{align}\]</span></p>
+<hr />
+</div>
+</div>
+</div>
+<div id="chapter-4.-monte-carlo-approximation" class="section level1">
+<h1>Chapter 4. Monte Carlo approximation</h1>
+<div id="tumor-count-comparisons" class="section level3">
+<h3>4.2 Tumor count comparisons</h3>
+<p>Reconsider the tumor count data in Exercise 3.3:</p>
+<div id="a.-4" class="section level4">
+<h4>(a).</h4>
+<p>For the prior distribution given in part a) of that exercise, obtain Pr(<span class="math inline">\(\theta_B &lt; \theta_A|y_A, y_B\)</span>) via Monte Carlo sampling.</p>
+<pre class="r"><code>theta.a = rgamma(5000, 237, 20)
+theta.b = rgamma(5000, 125, 14)
+mean(theta.b &lt; theta.a)</code></pre>
+<pre><code>## [1] 0.994</code></pre>
+</div>
+<div id="b.-4" class="section level4">
+<h4>(b).</h4>
+<p>For a range of values of <span class="math inline">\(n_0\)</span>, obtain Pr(<span class="math inline">\(\theta_B &lt; \theta_A|y_A, y_B\)</span>) for <span class="math inline">\(\theta_A\)</span> ∼ gamma(120, 10) and <span class="math inline">\(\theta_B\)</span> ∼ gamma(12×<span class="math inline">\(n_0\)</span>, <span class="math inline">\(n_0\)</span>). Describe how sensitive the conclusions about the event {<span class="math inline">\(\theta_B &lt; \theta_A\)</span>} are to the prior distributionon <span class="math inline">\(\theta_B\)</span>.</p>
+<pre class="r"><code>t&lt;-NULL
+for(n0 in 1:50) {
+thetaB&lt;-rgamma(10000, (12 * n0) + 113, n0 + 13)
+thetaA &lt;- rgamma(10000, 237, 20)
+t&lt;-c(t,mean(thetaB&lt;thetaA))
+}
+plot(t,main=&quot;Sensitivity to n0&quot;,ylab=&quot;MC probability&quot;,xlab=&quot;n0&quot;,type=&quot;l&quot;,
+col=&quot;blue&quot;)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-15-1.png" width="672" /> The posterior distribution is sensitive to the differences in prior opinion.</p>
+</div>
+<div id="c.-3" class="section level4">
+<h4>(c).</h4>
+<p>Repeat parts a) and b), replacing the event <span class="math inline">\({\theta_A &lt; \theta_B}\)</span> with the event{<span class="math inline">\(\tilde{Y_B} &lt; \tilde{Y_A}\)</span>}, where <span class="math inline">\(\tilde{Y_B}\)</span> and <span class="math inline">\(\tilde{Y_A}\)</span> are samples from the posterior predictive distribution.</p>
+<pre class="r"><code>y&lt;-NULL
+for(n0 in 1:50) {
+thetaB&lt;-rgamma(10000, (12 * n0) + 113, n0 + 13)
+thetaA &lt;- rgamma(10000, 237, 20)
+  y_a &lt;- rpois(10000, thetaA)
+  y_b &lt;- rpois(10000, thetaB)
+  y&lt;-c(y,mean(y_b &lt; y_a))
+}
+plot(t,main=&quot;Posterior Predictive
+Distribution v.s n_0&quot;,ylab=&quot;MC probability&quot;,xlab=&quot;n0&quot;,type=&quot;l&quot;,
+col=&quot;red&quot;)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-16-1.png" width="672" /> Distributions seem to be different from (b)</p>
+</div>
+</div>
+<div id="posterior-predictive-checks" class="section level3">
+<h3>4.3 Posterior predictive checks</h3>
+<p>Let’s investigate the adequacy of the Poisson model for the tumor count data. Following the example in Section 4.4, generate posterior predictive datasets <span class="math inline">\(y^{(1)}_A \dots y^{(1000)}_A\)</span>. Each <span class="math inline">\(y^{(s)}_A\)</span>is a sample of size <span class="math inline">\(n_A\)</span> = 10 from the Poisson distribution with parameter <span class="math inline">\(\theta_A^{(s)}\)</span>, <span class="math inline">\(\theta_A^{(s)}\)</span> is itself a sample from the posterior distribution <span class="math inline">\(p(\theta_A|y_A)\)</span>, and <span class="math inline">\(y_A\)</span> isthe observed data.</p>
+<div id="a.-5" class="section level4">
+<h4>(a).</h4>
+<ol style="list-style-type: lower-alpha">
+<li>For each s, let <span class="math inline">\(t^{(s)}\)</span> be the sample average of the 10 values of <span class="math inline">\(y^{(s)}_A\)</span>, divided by the sample standard deviation of <span class="math inline">\(y^{(s)}_A\)</span>. Make a histogram of <span class="math inline">\(t^{(s)}\)</span> and compare to the observed value of this statistic. Based on this statistic, assess the fit of the Poisson model for these data.</li>
+</ol>
+<p>Load the tutmor counts data</p>
+<pre class="r"><code>y.a = c(12, 9, 12, 14, 13, 13, 15, 8, 15, 6)
+y.b = c(11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7)</code></pre>
+<pre class="r"><code>a&lt;- 2 ; b&lt;- 1
+theta.a &lt;- rgamma(1000, a + sum(y.a), b + length(y.a))
+ta.mc&lt;- NULL
+for( s in 1:10000) {
+  y_s &lt;- rpois(10, theta.a)
+  t &lt;- mean(y_s) / sd(y_s)
+  ta.mc &lt;- c(ta.mc,t)
+}
+hist(ta.mc, prob=T,xlab=&quot;t(s)_A&quot;,ylab=&quot;Counts&quot;,col = &#39;darkmagenta&#39;,breaks=15,main = &quot;Monte Carlo approximation to the distribution&quot;)
+ta.obs &lt;- mean(y_a)/sd(y_a)
+
+segments(ta.obs,0,ta.obs,0.4,col=&quot;black&quot;,lwd=3)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-18-1.png" width="672" /> According to our Monte Carlo approximation to the ditribution of <span class="math inline">\(t^(s)\)</span>, with vertical line indicating the observed value <span class="math inline">\(t(y_obs)\)</span> <span class="math inline">\(t(y_obs)\)</span> seems to be in the peak of our 10,000 Monte Carlo datasets. Thus the Poisson model is not a bad fit.</p>
+</div>
+<div id="b.-5" class="section level4">
+<h4>(b).</h4>
+<p>Repeat the above goodness of fit evaluation for the data in population B.</p>
+<pre class="r"><code>a&lt;- 2 ; b&lt;- 1
+theta.b &lt;- rgamma(1000, a + sum(y.b), b + length(y.b))
+tb.mc&lt;- NULL
+for( s in 1:10000) {
+  y_s &lt;- rpois(10, theta.b)
+  tb &lt;- mean(y_s) / sd(y_s)
+  tb.mc &lt;- c(tb.mc,tb)
+}
+hist(tb.mc, prob=T,xlab=&quot;t(s)_B&quot;,ylab=&quot;Counts&quot;,col = &#39;darkmagenta&#39;,breaks =15,main = &quot;Monte Carlo approximation to the distribution&quot;)
+tb.obs &lt;- mean(y.b)/sd(y.b)
+segments(tb.obs,0,tb.obs,0.3,col=&quot;black&quot;,lwd=3)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-19-1.png" width="672" /> The vertical line is quite different from the distribution. This indicates that that our Poisson model is a bit flawed.</p>
+</div>
+</div>
+<div id="mixture-models" class="section level2">
+<h2>4.7 Mixture models:</h2>
+<p>After a posterior analysis on data from a population of squash plants, it was determined that the total vegetable weight of a given plant could be modeled with the following distribution: <span class="math inline">\(p(y|\theta, /sigma^2) = .31dnorm(y, \theta, /sigma) + .46dnorm(2\theta_1, 2/sigma) + .23dnorm(y, 3\theta_1, 3/sigma)\)</span></p>
+<p>where the posterior distributions of the parameters have been calculated as <span class="math inline">\(1/\sigma2\)</span> ∼ gamma(10, 2.5), and <span class="math inline">\(\theta|\sigma^2\)</span> ∼ normal(4.1, <span class="math inline">\(\sigma2/20\)</span>).</p>
+<div id="a.-6" class="section level4">
+<h4>(a).</h4>
+<ol style="list-style-type: lower-alpha">
+<li>Sample at least 5,000 y values from the posterior predictive distribution.</li>
+</ol>
+<pre class="r"><code>sigma_sq.mc &lt;- 1 / rgamma(10000, 10, 2.5)
+theta.mc &lt;- rnorm(10000, 4.1, sigma_sq.mc / 20)</code></pre>
+</div>
+<div id="b.-6" class="section level4">
+<h4>(b).</h4>
+<p>Form a 75% quantile-based confidence interval for a new value of Y.</p>
+<pre class="r"><code>sigma.mc &lt;- sqrt(sigma_sq.mc)
+y.mc &lt;- 0.31 * rnorm(10000, theta.mc, sigma.mc) + 0.46 * rnorm(10000, 2 * theta.mc, 2 * sigma.mc) + 0.23 * rnorm(10000, 3 * theta.mc, 3 * sigma.mc)
+print(quantile(y.mc, c(.125, .875)))</code></pre>
+<pre><code>##    12.5%    87.5% 
+## 7.162997 8.565352</code></pre>
+</div>
+<div id="c.-4" class="section level4">
+<h4>(c).</h4>
+<p>Form a 75% HPD region for a new Y as follows:</p>
+<p>(i). Compute estimates of the posterior density of Y using the density command in R, and then normalize the density values so they sum to 1.</p>
+<pre class="r"><code>y.density &lt;- density(y.mc)
+plot(y.density,col = &quot;red&quot;,main = &quot;Posterior Density of Y&quot;)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<pre class="r"><code>y_norm = y.density$y / sum(y.density$y)</code></pre>
+<p>(ii). Sort these discrete probabilities in decreasing order.</p>
+<pre class="r"><code>y_sort &lt;- y_norm[order(y_norm,decreasing = TRUE)]</code></pre>
+<p>(iii). Find the first probability value such that the cumulative sum of the sorted values exceeds 0.75. Your HPD region includes all values of y which have a discretized probability greater than this cutoff. Describe your HPD region, and compare it to your quantile-based region.</p>
+<pre class="r"><code>index &lt;-  min(which((cumsum(y_sort) &gt;0.75)))
+y_sort[index]</code></pre>
+<pre><code>## [1] 0.004131468</code></pre>
+<pre class="r"><code>data&lt;-data.frame(x =y.density$x, density = y_norm)
+data$hdp[data$density &gt; y_sort[index]]=&quot;red&quot;
+data$hdp[data$density &lt;= y_sort[index]]=&quot;blue&quot;
+
+plot(x= data$x, y=data$density,col=data$hdp,ylim=c(0,0.01),type = &quot;p&quot;,cex=0.5,pch = 19)
+legend(5, 0.006, legend=c(&quot;greater than cutoff&quot;, &quot;less or equal than cutoff&quot;),col=c(&quot;red&quot;, &quot;blue&quot;), lty=1:1, cex=0.8)</code></pre>
+<p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+</div>
 </div>
 </div>
 
