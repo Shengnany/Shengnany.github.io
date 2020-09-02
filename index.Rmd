@@ -3,7 +3,9 @@ title: "Shengnan You"
 ---
 “The most important questions of life are indeed, for the most part, really only problems of probability.” ——— Pierre-Simon Laplace
 
+> ## Skills
 
+Programming Language(Java,R,Python), Data Structures and Algorithms, Probability, Stochastic Processes, Regression Models, Mathematical Statistics, Data Mining, Simulation, Statistical Learning
 
 > ## Projects
 

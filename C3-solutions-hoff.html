@@ -797,6 +797,9 @@ data$hdp[data$density &lt;= y_sort[index]]=&quot;blue&quot;
 plot(x= data$x, y=data$density,col=data$hdp,ylim=c(0,0.01),type = &quot;p&quot;,cex=0.5,pch = 19)
 legend(5, 0.006, legend=c(&quot;greater than cutoff&quot;, &quot;less or equal than cutoff&quot;),col=c(&quot;red&quot;, &quot;blue&quot;), lty=1:1, cex=0.8)</code></pre>
 <p><img src="C3-solutions-hoff_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<pre class="r"><code>y.density$x[c(min(which(y_norm &gt;y_sort[index])), max(which(y_norm &gt; y_sort[index])))]</code></pre>
+<pre><code>## [1] 7.174778 8.571256</code></pre>
+<p>The HDP is very similar to quantile confidence intervals.</p>
 </div>
 </div>
 </div>
