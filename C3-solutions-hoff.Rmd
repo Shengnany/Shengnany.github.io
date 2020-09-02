@@ -405,8 +405,9 @@ we get $\theta  = \frac{e^\psi}{1 + e^\psi}$ as a fucntion of $\psi$:  $h(\psi)$
 Plug into the distribution in (a):
 
 \begin{align}
-p(h(\psi)) &= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}}\\
-&= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^{\psi}}\right)}}\\
+p(h(\psi)) 
+&= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \\
+&= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}} \\
 \end{align}
 
 \begin{equation}
