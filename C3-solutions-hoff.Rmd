@@ -411,7 +411,7 @@ p(h(\psi))
 \end{align}
 
 \begin{equation}
-\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}}{{e^{\psi} + 1}^2}
+\frac{dh(\psi)}{d\psi} = \frac{e^{\psi}} {{{e^{\psi}} + 1}^2}
 \end{equation}
 
 Apply the change of variables
@@ -420,7 +420,7 @@ formula:
 p_{\psi}(\psi) &\propto p(h(\psi)) \times \left| \frac{dh}{d\psi} \right| \\
 &\propto \sqrt{\frac{n}{\frac{e^{\psi}}{1 + e^{\psi}} \left(1 - \frac{e^{\psi}}{1 + e^{\psi}}\right)}} \times \frac{e^{\psi}}{(e^{\psi} + 1)^2} \\
 &\propto \sqrt{\frac{n(e^{\psi} + 1)^2}{e^{\psi}} } \times \frac{e^{\psi}}{(e^{\psi} + 1)^2} \\
-&\propto \sqrt{\frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}}\\
+&\propto \sqrt{\frac{n e^{\psi}}{\left(e^{\psi} + 1 \right)^2}}\\
 \end{align}
 
 ***
