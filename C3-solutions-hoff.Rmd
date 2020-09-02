@@ -1,5 +1,5 @@
 ---
-title: "C3-One-parameter-models"
+title: A First Course in Bayesian Statistical Methods Solutions
 output:
   html_document: default
 
@@ -9,6 +9,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Chapter 3. One-parameter models
 
 ### 3.1 Sample survey
 *Question*
@@ -151,15 +152,15 @@ The left-panel figure gives the posterior probabilities Pr($\theta$ > 0.5|$\sum 
 a<-n0*th0 ; b<-n0*(1-th0)
 # Posterior Expectation
 exp<- outer(a, b, FUN=function(a,b) (a+y)/(b+n-y) )
-rownames(exp) = a
-colnames(exp) = b
+rownames(exp) <- a
+colnames(exp) <- b
 head(exp)
 
 ```
 ```{r}
 mode<- outer(a, b, FUN=function(a,b) (a+y-1)/(a+y-1+b+n-y-1))
-rownames(exp) = a
-colnames(exp) = b
+rownames(exp) <- a
+colnames(exp) <- b
 head(mode)
 ```
 
@@ -232,8 +233,8 @@ for the posterior expectation of $\theta_B$  to be close to that of $\theta_A$ .
 
 ```{r}
 n_0 = 1:50
-exp.pos = (12 * n_0 + sum(y_b)) / (n_0 + length(y_b))
-qplot(n_0, exp.pos)
+mean.pos = (12 * n_0 + sum(y_b)) / (n_0 + length(y_b))
+qplot(n_0, mean.pos)
 ```
 We can see from the graph that, in order for the posterior expectation of $\theta_B$  to be close to that of $\theta_A$, prior beliefs shoud be around 50
 
@@ -420,6 +421,171 @@ p_{\psi}(\psi) &\propto p(h(\psi)) \times \left| \frac{dh}{d\psi} \right| \\
 &\propto \sqrt{\frac{n(e^\psi + 1)^2}{e^\psi} } \times \frac{e^\psi}{(e^\psi + 1)^2} \\
 &\propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}}\\
 \end{align}
+
+***
+
+# Chapter 4. Monte Carlo approximation
+
+
+### 4.2 Tumor count comparisons
+
+Reconsider the tumor count data in Exercise 3.3:
+
+#### (a).
+For the prior distribution given in part a) of that exercise, obtain Pr($\theta_B < \theta_A|y_A, y_B$) via Monte Carlo sampling.
+```{r}
+theta.a = rgamma(5000, 237, 20)
+theta.b = rgamma(5000, 125, 14)
+mean(theta.b < theta.a)
+```
+
+#### (b).
+For a range of values of $n_0$, obtain Pr($\theta_B < \theta_A|y_A, y_B$) for $\theta_A$ ∼ gamma(120, 10) and $\theta_B$  ∼ gamma(12×$n_0$, $n_0$). Describe how sensitive the conclusions about the event {$\theta_B < \theta_A$} are to the prior distributionon $\theta_B$.
+```{r}
+t<-NULL
+for(n0 in 1:50) {
+thetaB<-rgamma(10000, (12 * n0) + 113, n0 + 13)
+thetaA <- rgamma(10000, 237, 20)
+t<-c(t,mean(thetaB<thetaA))
+}
+plot(t,main="Sensitivity to n0",ylab="MC probability",xlab="n0",type="l",
+col="blue")
+```
+The posterior distribution is sensitive to the differences in prior opinion.
+
+
+#### (c).
+Repeat parts a) and b), replacing the event ${\theta_A < \theta_B}$ with the event{$\tilde{Y_B} < \tilde{Y_A}$}, where $\tilde{Y_B}$ and $\tilde{Y_A}$ are samples from the posterior predictive
+distribution.
+```{r}
+y<-NULL
+for(n0 in 1:50) {
+thetaB<-rgamma(10000, (12 * n0) + 113, n0 + 13)
+thetaA <- rgamma(10000, 237, 20)
+  y_a <- rpois(10000, thetaA)
+  y_b <- rpois(10000, thetaB)
+  y<-c(y,mean(y_b < y_a))
+}
+plot(t,main="Posterior Predictive
+Distribution v.s n_0",ylab="MC probability",xlab="n0",type="l",
+col="red")
+```
+Distributions seem to be different from (b)
+
+### 4.3 Posterior predictive checks
+
+Let’s investigate the adequacy of the Poisson
+model for the tumor count data. Following the example in Section
+4.4, generate posterior predictive datasets $y^{(1)}_A \dots y^{(1000)}_A$. Each $y^{(s)}_A$is a
+sample of size $n_A$ = 10 from the Poisson distribution with parameter $\theta_A^{(s)}$, $\theta_A^{(s)}$ is itself a sample from the posterior distribution $p(\theta_A|y_A)$, and $y_A$ isthe observed data.
+
+#### (a).
+a) For each s, let $t^{(s)}$ be the sample average of the 10 values of $y^{(s)}_A$,
+divided by the sample standard deviation of $y^{(s)}_A$.  Make a histogram
+of $t^{(s)}$ and compare to the observed value of this statistic. Based on
+this statistic, assess the fit of the Poisson model for these data.
+
+Load the tutmor counts data
+```{r}
+ya = c(12, 9, 12, 14, 13, 13, 15, 8, 15, 6)
+yb = c(11, 11, 10, 9, 9, 8, 7, 10, 6, 8, 8, 9, 7)
+```
+
+
+```{r}
+a<- 2 ; b<- 1
+theta.a <- rgamma(1000, a + sum(y.a), b + length(y.a))
+ta.mc<- NULL
+for( s in 1:10000) {
+  y_s <- rpois(10, theta.a)
+  t <- mean(y_s) / sd(y_s)
+  ta.mc <- c(ta.mc,t)
+}
+hist(ta.mc, prob=T,xlab="t(s)_A",ylab="Counts",col = 'darkmagenta',breaks=15,main = "Monte Carlo approximation to the distribution")
+ta.obs <- mean(y_a)/sd(y_a)
+
+segments(ta.obs,0,ta.obs,0.4,col="black",lwd=3)
+```
+According to our Monte Carlo approximation to the ditribution of $t^(s)$, with vertical line indicating the observed value $t(y_obs)$ 
+$t(y_obs)$ seems to be in the  peak of our 10,000 Monte Carlo datasets. Thus the Poisson model is not a bad fit.
+
+
+
+#### (b).
+Repeat the above goodness of fit evaluation for the data in population B.
+```{r}
+a<- 2 ; b<- 1
+theta.b <- rgamma(1000, a + sum(y.b), b + length(y.b))
+tb.mc<- NULL
+for( s in 1:10000) {
+  y_s <- rpois(10, theta.b)
+  tb <- mean(y_s) / sd(y_s)
+  tb.mc <- c(tb.mc,tb)
+}
+hist(tb.mc, prob=T,xlab="t(s)_B",ylab="Counts",col = 'darkmagenta',breaks =15,main = "Monte Carlo approximation to the distribution")
+tb.obs <- mean(y.b)/sd(y.b)
+segments(tb.obs,0,tb.obs,0.3,col="black",lwd=3)
+```
+The vertical line is quite different from the distribution. This indicates that that our Poisson model is a bit flawed.
+
+## 4.7 Mixture models:
+
+After a posterior analysis on data from a population of squash plants, it was determined that the total vegetable weight of a given
+plant could be modeled with the following distribution:
+$p(y|\theta, /sigma^2) = .31dnorm(y, \theta, /sigma) + .46dnorm(2\theta_1, 2/sigma) + .23dnorm(y, 3\theta_1, 3/sigma)$
+
+where the posterior distributions of the parameters have been calculated
+as $1/\sigma2$ ∼ gamma(10, 2.5), and $\theta|\sigma^2$ ∼ normal(4.1, $\sigma2/20$).
+
+#### (a).
+a) Sample at least 5,000 y values from the posterior predictive distribution.
+```{r}
+sigma_sq.mc <- 1 / rgamma(10000, 10, 2.5)
+theta.mc <- rnorm(10000, 4.1, sigma2.mc / 20)
+```
+
+#### (b). 
+Form a 75% quantile-based confidence interval for a new value of Y.
+```{r}
+sigma.mc <- sqrt(sigma_sq.mc)
+y.mc <- 0.31 * rnorm(N, theta.mc, sigma.mc) + 0.46 * rnorm(N, 2 * theta.mc, 2 * sigma.mc) + 0.23 * rnorm(N, 3 * theta.mc, 3 * sigma.mc)
+print(quantile(y.mc, c(.125, .875)))
+```
+
+#### (c).
+Form a 75% HPD region for a new Y as follows:
+
+(i). Compute estimates of the posterior density of Y using the density command in R, and then normalize the density values so they sum
+to 1.
+```{r}
+y.density <- density(y.mc)
+plot(y.density,col = "red",main = "Posterior Density of Y")
+y_norm = y.density$y / sum(y.density$y)
+
+```
+(ii). Sort these discrete probabilities in decreasing order.
+```{r}
+y_sort <- y_norm[order(y_norm,decreasing = TRUE)]
+y_sort
+```
+(iii). Find the first probability value such that the cumulative sum of
+the sorted values exceeds 0.75. Your HPD region includes all values
+of y which have a discretized probability greater than this cutoff.
+Describe your HPD region, and compare it to your quantile-based
+region.
+```{r}
+index <-  min(which((cumsum(y_sort) >0.75)))
+y_sort[index]
+data<-data.frame(x =y.density$x, density = y_norm)
+data
+data$hdp[data$density > y_sort[index]]="red"
+data$hdp[data$density <= y_sort[index]]="blue"
+
+plot(x= data$x, y=data$density,col=data$hdp,ylim=c(0,0.01),type = "p",cex=0.5,pch = 19)
+legend(4, 0.006, legend=c("greater than cutoff", "less or equal than cutoff"),col=c("red", "blue"), lty=1:1, cex=0.8)
+```
+
+
 
 
 
