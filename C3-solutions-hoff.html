@@ -632,29 +632,29 @@ p_J(\theta) = \frac{\Gamma(1)}{\Gamma(\frac{1}{2})\Gamma(\frac{1}{2})}\theta^{-\
 <p>Reparameterize the binomial sampling model with <span class="math inline">\(\psi\)</span> = <span class="math inline">\(\log (\theta/(1 − \theta))\)</span>, so that p(y|<span class="math inline">\(\psi\)</span>) = {n y} <span class="math inline">\(e^{\psi y}(1+e^{\psi y})^{-n}\)</span>.Obtain Jeffreys’ prior distribution <span class="math inline">\(p_J (\psi)\)</span> for this model.</p>
 <p>Similar to (a): <span class="math display">\[\begin{align}
 \log p(y \mid \psi) 
-&amp;= \log \left( {n \choose y} e^{\psi y} (1 + e^\psi)^{-n} \right) \\
-&amp;= \log {n \choose y} + \psi y - n \log \left(1 + e^\psi \right) \\
+&amp;= \log \left( {n \choose y} e^{\psi y} (1 + e^{\psi})^{-n} \right) \\
+&amp;= \log {n \choose y} + \psi y - n \log \left(1 + e^{\psi} \right) \\
 \end{align}\]</span></p>
 <p>Differentiate: <span class="math display">\[\begin{align}
-\frac{\partial}{\partial \psi} \log p(y | \psi) &amp;= y - \frac{n e^\psi}{e^\psi + 1} \\
-\frac{\partial^2}{\partial \psi^2 } \log (y | \psi) &amp;= - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}
+\frac{\partial}{\partial \psi} \log p(y | \psi) &amp;= y - \frac{n e^{\psi}}{e^{\psi} + 1} \\
+\frac{\partial^2}{\partial \psi^2 } \log (y | \psi) &amp;= - \frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}
 \end{align}\]</span> Take Expectation: <span class="math display">\[\begin{align}
--\mathrm{E}\left( - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}\right) 
-&amp;= \frac{n e^\psi}{\left( e^\psi + 1 \right)^2} \\
+-\mathrm{E}\left( - \frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}\right) 
+&amp;= \frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2} \\
 \end{align}\]</span></p>
 <p><span class="math display">\[\begin{equation}
-p_J(\psi) \propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}} 
+p_J(\psi) \propto \sqrt{\frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}} 
 \end{equation}\]</span></p>
 </div>
 <div id="c.-2" class="section level4">
 <h4>(c).</h4>
 <p>Take the prior distribution from a) and apply the change of variables formula from Exercise 3.10 to obtain the induced prior density on <span class="math inline">\(\psi\)</span>. This density should be the same as the one derived in part b) of this exercise. This consistency under reparameterization is the defining characteristic of Jeffrey’s’ prior.</p>
 <p>Note that Jeffreys’ prior is invariant under reparameterization:</p>
-<p>From <span class="math inline">\(\psi = \log \frac{\theta}{1 - \theta}\)</span> we get <span class="math inline">\(\theta = \frac{e^\psi}{1 + e^\psi}\)</span> as a fucntion of <span class="math inline">\(\psi\)</span>: <span class="math inline">\(h(\psi)\)</span>.</p>
+<p>From <span class="math inline">\(\psi = \log \frac{\theta}{1 - \theta}\)</span> we get <span class="math inline">\(\theta = \frac{e^{\psi}}{1 + e^{\psi}}\)</span> as a fucntion of <span class="math inline">\(\psi\)</span>: <span class="math inline">\(h(\psi)\)</span>.</p>
 <p>Plug into the distribution in (a):</p>
 <p><span class="math display">\[\begin{align}
 p(h(\psi)) 
-&amp;= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \\
+&amp;= \sqrt{\frac{n}{\frac{e^{\psi}}{1 + e^{\psi}} \left(1 - \frac{e^{\psi}}{1 + e^{\psi}}\right)}} \\
 &amp;= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}} \\
 \end{align}\]</span></p>
 <p><span class="math display">\[\begin{equation}
@@ -662,9 +662,9 @@ p(h(\psi))
 \end{equation}\]</span></p>
 <p>Apply the change of variables formula: <span class="math display">\[\begin{align}
 p_{\psi}(\psi) &amp;\propto p(h(\psi)) \times \left| \frac{dh}{d\psi} \right| \\
-&amp;\propto \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \times \frac{e^\psi}{(e^\psi + 1)^2} \\
-&amp;\propto \sqrt{\frac{n(e^\psi + 1)^2}{e^\psi} } \times \frac{e^\psi}{(e^\psi + 1)^2} \\
-&amp;\propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}}\\
+&amp;\propto \sqrt{\frac{n}{\frac{e^{\psi}}{1 + e^{\psi}} \left(1 - \frac{e^{\psi}}{1 + e^{\psi}}\right)}} \times \frac{e^{\psi}}{(e^{\psi} + 1)^2} \\
+&amp;\propto \sqrt{\frac{n(e^{\psi} + 1)^2}{e^{\psi}} } \times \frac{e^{\psi}}{(e^{\psi} + 1)^2} \\
+&amp;\propto \sqrt{\frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}}\\
 \end{align}\]</span></p>
 <hr />
 </div>

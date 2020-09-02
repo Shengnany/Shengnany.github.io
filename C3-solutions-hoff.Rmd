@@ -371,24 +371,24 @@ so that p(y|$\psi$) = {n \choose y} $e^{\psi y}(1+e^{\psi y})^{-n}$.Obtain Jeffr
 Similar to (a):
 \begin{align}
 \log p(y \mid \psi) 
-&= \log \left( {n \choose y} e^{\psi y} (1 + e^\psi)^{-n} \right) \\
-&= \log {n \choose y} + \psi y - n \log \left(1 + e^\psi \right) \\
+&= \log \left( {n \choose y} e^{\psi y} (1 + e^{\psi})^{-n} \right) \\
+&= \log {n \choose y} + \psi y - n \log \left(1 + e^{\psi} \right) \\
 \end{align}
 
 Differentiate:
 \begin{align}
-\frac{\partial}{\partial \psi} \log p(y | \psi) &= y - \frac{n e^\psi}{e^\psi + 1} \\
-\frac{\partial^2}{\partial \psi^2 } \log (y | \psi) &= - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}
+\frac{\partial}{\partial \psi} \log p(y | \psi) &= y - \frac{n e^{\psi}}{e^{\psi} + 1} \\
+\frac{\partial^2}{\partial \psi^2 } \log (y | \psi) &= - \frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}
 \end{align}
 Take Expectation:
 \begin{align}
--\mathrm{E}\left( - \frac{n e^\psi}{\left( e^\psi + 1 \right)^2}\right) 
-&= \frac{n e^\psi}{\left( e^\psi + 1 \right)^2} \\
+-\mathrm{E}\left( - \frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}\right) 
+&= \frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2} \\
 \end{align}
 
 
 \begin{equation}
-p_J(\psi) \propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}} 
+p_J(\psi) \propto \sqrt{\frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}} 
 \end{equation}
 
 #### (c).
@@ -400,13 +400,13 @@ exercise. This consistency under reparameterization is the defining characterist
 Note that Jeffreys' prior is invariant under  reparameterization:
 
 From $\psi = \log \frac{\theta}{1 - \theta}$ 
-we get $\theta  = \frac{e^\psi}{1 + e^\psi}$ as a fucntion of $\psi$:  $h(\psi)$.
+we get $\theta  = \frac{e^{\psi}}{1 + e^{\psi}}$ as a fucntion of $\psi$:  $h(\psi)$.
 
 Plug into the distribution in (a):
 
 \begin{align}
 p(h(\psi)) 
-&= \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \\
+&= \sqrt{\frac{n}{\frac{e^{\psi}}{1 + e^{\psi}} \left(1 - \frac{e^{\psi}}{1 + e^{\psi}}\right)}} \\
 &= \sqrt{\frac{n}{h(\psi)(1 - h(\psi)}} \\
 \end{align}
 
@@ -418,9 +418,9 @@ Apply the change of variables
 formula:
 \begin{align}
 p_{\psi}(\psi) &\propto p(h(\psi)) \times \left| \frac{dh}{d\psi} \right| \\
-&\propto \sqrt{\frac{n}{\frac{e^\psi}{1 + e^\psi} \left(1 - \frac{e^\psi}{1 + e^\psi}\right)}} \times \frac{e^\psi}{(e^\psi + 1)^2} \\
-&\propto \sqrt{\frac{n(e^\psi + 1)^2}{e^\psi} } \times \frac{e^\psi}{(e^\psi + 1)^2} \\
-&\propto \sqrt{\frac{n e^{\psi}}{\left( e^\psi + 1 \right)^2}}\\
+&\propto \sqrt{\frac{n}{\frac{e^{\psi}}{1 + e^{\psi}} \left(1 - \frac{e^{\psi}}{1 + e^{\psi}}\right)}} \times \frac{e^{\psi}}{(e^{\psi} + 1)^2} \\
+&\propto \sqrt{\frac{n(e^{\psi} + 1)^2}{e^{\psi}} } \times \frac{e^{\psi}}{(e^{\psi} + 1)^2} \\
+&\propto \sqrt{\frac{n e^{\psi}}{\left( e^{\psi} + 1 \right)^2}}\\
 \end{align}
 
 ***
